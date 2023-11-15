@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => '商品管理',
+    'title' => 'レシピ管理',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>商品管理</b>',
+    'logo' => '<b>レシピ管理</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => '商品管理',
+    'logo_img_alt' => 'レシピ管理',
 
     /*
     |--------------------------------------------------------------------------
@@ -291,10 +291,28 @@ return [
 
     'menu' => [
         [
-            'text' => '商品一覧',
-            'url'  => 'items',
+            'text' => 'レシピ一覧',
+            'url'  => 'recipes/',
             'icon' => 'fas fa-gamepad',
         ],
+        [
+            'text' => 'レシピを書く',
+            'url'  => 'recipes/create',
+            'icon' => 'fas fa-gamepad',
+        ],
+        [
+            'text' => '評価したレシピ',
+            'url'  => 'recipes',
+            'icon' => 'fas fa-gamepad',
+        ],
+        [
+            'text' => 'ランキング',
+            'url'  => 'recipes',
+            'icon' => 'fas fa-gamepad',
+        ],
+
+
+
 
         // AdminLTEデフォルト
         /*

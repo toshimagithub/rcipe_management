@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品登録')
+@section('title', 'レシピ登録')
 
 @section('content_header')
-    <h1>商品登録</h1>
+    <h1>レシピ登録</h1>
 @stop
 
 @section('content')
@@ -12,30 +12,34 @@
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
-                       @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                       @endforeach
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                     </ul>
                 </div>
             @endif
 
             <div class="card card-primary">
-                <form method="POST">
+                <form action="{{ url('recipes/store') }}" method="POST" enctype="multipart/form-data">
+
                     @csrf
                     <div class="card-body">
+
+                        <input type="file" name="image" class="mb-3">
+
                         <div class="form-group">
                             <label for="name">名前</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="名前">
+                            <input type="text" class="form-control"  name="name" placeholder="名前">
                         </div>
 
                         <div class="form-group">
-                            <label for="type">種別</label>
-                            <input type="text" class="form-control" id="type" name="type" placeholder="種別">
+                            <label for="type">材料</label>
+                            <input type="text" class="form-control" name="ingredients[]" placeholder="種別">
                         </div>
 
                         <div class="form-group">
-                            <label for="detail">詳細</label>
-                            <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
+                            <label for="detail">コメント</label>
+                            <input type="text" class="form-control" name="comment" placeholder="詳細説明">
                         </div>
                     </div>
 

@@ -21,8 +21,11 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('items')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
-    Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
+Route::prefix('recipes')->group(function () {
+    Route::get('/', [App\Http\Controllers\RecipeController::class, 'index'])->name('recipe.index');
+    Route::get('/create', [App\Http\Controllers\RecipeController::class, 'create']);
+    Route::post('/store', [App\Http\Controllers\RecipeController::class, 'store']);
 });
+
+
+
