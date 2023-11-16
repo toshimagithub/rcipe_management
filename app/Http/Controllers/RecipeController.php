@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\Ingredient;
-
+use App\Models\Step;
 use App\Models\Recipe;
 use App\Models\user;
 
@@ -20,12 +20,10 @@ class RecipeController extends Controller
         $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->get();
 
 
-
         return view('recipes.index', compact('recipes'));
 
     }
-
-
+ 
     public function create()
     {
         return view('recipes.create');
@@ -38,6 +36,7 @@ class RecipeController extends Controller
         $this->validate($request,[
             'name'=>'required|max:255',
             'ingredients'=>'required',
+            'descriptions'=>'required',
             'comment'=>'required|max:255',
             'image'=>'image|mimes:jpeg,png,jpg,gif|max:1024',
         ]);
@@ -64,7 +63,31 @@ class RecipeController extends Controller
         $recipes->ingredients()->create(['ingredient'=>$ingredient]);
     }
 
-    return redirect('/recipes');
+    $descriptions = $request->input('descriptions');
+    $order = 1; // 最初の順番
+
+    foreach ($descriptions as $description) {
+        $recipes->steps()->create([
+            'description' => $description,
+            'order' => $order,
+        ]);
+        // 次の順番に進む
+        $order++;
+    }
+
+
+    return redirect()->route('recipe.index');
+}
+
+public function show(Recipe $recipe)
+{
+    $ingredients = $recipe->ingredients;
+
+    $steps = $recipe->steps;
+
+    
+    return view('recipes.show',compact('recipe','ingredients','steps'));
+
 }
 
 
