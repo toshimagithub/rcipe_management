@@ -128,4 +128,38 @@ public function review(Request $request, Recipe $recipe)
 }
 
 
+    public function myrecipes()
+    {
+        $user = auth()->user();
+
+        // ログインユーザーが投稿したレシピを取得
+        $recipes = Recipe::with(['user', 'ingredients'])
+        ->where('user_id', $user->id)
+        ->orderBy('updated_at', 'desc')
+        ->get();
+
+        // 取得したレシピをビューに渡して表示
+        return view('recipes.myrecipes', compact('recipes'));
+        }
+
+        public function edit( Recipe $recipe)
+        {
+            $ingredients = $recipe->ingredients;
+            $steps = $recipe->steps;
+            $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
+            ->where('user_id', auth()->user()->id)
+            ->first(); // レビュー情報を取得 １件だけ返ってくる。
+        
+        
+        
+            return view('recipes.edit',compact('recipe','ingredients','steps', 'recipesReview'));
+        
+        }
+
+
+
+    
+    
+
+
 }

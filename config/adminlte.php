@@ -311,8 +311,8 @@ return [
             'icon' => 'fas fa-gamepad',
         ],
         [
-            'text' => '投稿したレシピ',
-            'url'  => 'recipes',
+            'text' => 'マイレシピ',
+            'url'  => 'recipes/myrecipes',
             'icon' => 'fas fa-gamepad',
         ],
 

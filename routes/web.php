@@ -27,7 +27,11 @@ Route::prefix('recipes')->group(function () {
     Route::post('/store', [App\Http\Controllers\RecipeController::class, 'store'])->name('recipe.store');
     Route::get('/show/{recipe}', [App\Http\Controllers\RecipeController::class, 'show'])->name('recipe.show');
     Route::post('/review/{recipe}', [App\Http\Controllers\RecipeController::class, 'review'])->name('recipe.review');
-    Route::get('/', [App\Http\Controllers\RecipeController::class, 'create'])->name('recipe.create');
+    Route::get('/myrecipes', [App\Http\Controllers\RecipeController::class, 'myrecipes'])->name('recipe.myrecipes');
+    Route::get('/edit/{recipe}', [App\Http\Controllers\RecipeController::class, 'edit'])->name('recipe.edit');
+    Route::patch('/update/{recipe}', [App\Http\Controllers\RecipeController::class, 'update'])->name('recipe.update');
+
+
 
 
 });

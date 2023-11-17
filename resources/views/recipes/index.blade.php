@@ -22,9 +22,9 @@
                     @endif
                     <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                     <br>
-                    <strong>{{ $recipe->name }}</strong>
                 @endif
             </a>
+            <strong>{{ $recipe->name }}</strong>
             <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
         </div>
     @endforeach

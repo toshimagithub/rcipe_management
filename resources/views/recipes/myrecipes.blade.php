@@ -2,14 +2,16 @@
 
 
 @section('content_header')
-    <h1 class="text-center">レシピ一覧</h1>
+    <h1 class="text-center">マイレシピ</h1>
 @stop
+
 
 @section('content')
 
 
 <div class="row text-center">
     @foreach ($recipes as $recipe)
+ 
         <div class="col-md-4">
             <a href="{{ route('recipe.show', [$recipe->id]) }}">
                 @if ($recipe->image)
@@ -22,10 +24,14 @@
                     @endif
                     <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                     <br>
-                    <strong>{{ $recipe->name }}</strong>
                 @endif
             </a>
-            <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
+            <a href="{{ route('recipe.edit', [$recipe->id]) }}" class="btn btn-warning mt-1">編集</a><br>
+            <div class="d-flex justify-content-center">
+
+                <b class="ms-2">{{ $recipe->name }}</b>
+                  <p class="">{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
+            </div>
         </div>
     @endforeach
 </div>
