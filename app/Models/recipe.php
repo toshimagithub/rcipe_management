@@ -33,5 +33,10 @@ class Recipe extends Model
         return $this->hasMany(Step::class);
     }
 
+    public function recipesreview()
+    {
+        return $this->hasMany(RecipesReview::class);
+    }
+
 
 }

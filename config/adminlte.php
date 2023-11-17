@@ -310,6 +310,11 @@ return [
             'url'  => 'recipes',
             'icon' => 'fas fa-gamepad',
         ],
+        [
+            'text' => '投稿したレシピ',
+            'url'  => 'recipes',
+            'icon' => 'fas fa-gamepad',
+        ],
 
 
 

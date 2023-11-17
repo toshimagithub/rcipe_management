@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\Ingredient;
 use App\Models\Step;
 use App\Models\Recipe;
-use App\Models\user;
+use App\Models\User;
+use App\Models\RecipesReview;
+
 
 class RecipeController extends Controller
 {
@@ -82,11 +84,46 @@ class RecipeController extends Controller
 public function show(Recipe $recipe)
 {
     $ingredients = $recipe->ingredients;
-
     $steps = $recipe->steps;
+    $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
+    ->where('user_id', auth()->user()->id)
+    ->first(); // レビュー情報を取得 １件だけ返ってくる。
 
-    
-    return view('recipes.show',compact('recipe','ingredients','steps'));
+
+
+    return view('recipes.show',compact('recipe','ingredients','steps', 'recipesReview'));
+
+}
+
+public function review(Request $request, Recipe $recipe)
+{
+
+
+    $request->validate([
+        'selected-star' => 'required|integer|min:1|max:5',
+    ]);
+
+
+    $user = auth()->user();
+    $recipesReview = RecipesReview::where('user_id', $user->id)->where('recipe_id', $recipe->id)->first();
+
+    if ($recipesReview) {
+        // ユーザーがすでに評価を行っている場合、評価を更新
+        $recipesReview->star = $request->input('selected-star');
+        $recipesReview->save();
+    } else {
+        // 評価がない場合、新しい評価を作成
+        $recipesReview = new RecipesReview();
+        $recipesReview->recipe_id = $recipe->id;
+        $recipesReview->star = $request->input('selected-star');
+        $recipesReview->user_id = $user->id;
+        $recipesReview->save();
+    }
+
+
+
+
+    return redirect()->route('recipe.show', $recipe->id);
 
 }
 

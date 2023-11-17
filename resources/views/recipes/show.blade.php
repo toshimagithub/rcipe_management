@@ -3,21 +3,44 @@
 @section('content_header')
 <style>
 .mb {
-    margin-bottom: 85px !important;
+    margin-bottom: 50px !important;
   }
-  </style>
+</style>
 <div class="mb">
 </div>
 @stop
 
 @section('content')
 
+
+<div class="star-rating">
+    <form id="rating-form" action="{{route('recipe.review', [$recipe->id])}}" method="POST">
+        @csrf <!-- CSRFトークンを追加 -->
+        <div class="d-flex align-items-center" style="margin: 40px 0 40px 480px;">
+            <div class="stars">
+                @for ($i = 1; $i <= 5; $i++)
+                    <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
+                @endfor
+            </div>
+            <div class="ms-3 rating-button-container">
+                <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
+
+                <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
+            </div>
+        </div>
+    </form>
+    <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2">評価しました！</div>
+</div>
+
 <div class="container">
+
+
+
     <div class="row justify-content-center align-items-center">
         <!-- レシピ名と画像 -->
         <div class="col-md-6 text-center">
             <h4><b>{{ $recipe->name }}</b></h4>
-            
+
             @if($recipe->image)
                 <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="max-height:300px; width:auto;">
             @endif
@@ -63,9 +86,56 @@
 @stop
 
 @section('css')
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 @stop
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script>
+    // 星評価のクリックイベントをリッスン
+    const stars = document.querySelectorAll('.star');
+    const ratingButton = document.getElementById('submit-rating');
+    const selectedRating = document.getElementById('selected-rating');
+    const ratingSuccessMessage = document.getElementById('rating-success-message');
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const rating = star.getAttribute('data-rating');
+            selectedRating.value = rating;
+            updateStars(rating);
+        });
+    });
+
+    // 評価ボタンをクリックしたときの処理
+    ratingButton.addEventListener('click', () => {
+        // 評価ボタンを無効化（再クリックを防ぐ）
+        ratingButton.disabled = true;
+
+        // フォームをサブミット
+        document.getElementById('rating-form').submit();
+
+        // 評価しましたのアラートを表示
+        ratingSuccessMessage.style.display = 'block';
+
+        // 3秒後にアラートを非表示にする
+        setTimeout(() => {
+            ratingSuccessMessage.style.display = 'none';
+        }, 3000);
+    });
+
+    // 評価値に合わせて星を更新する関数
+    function updateStars(rating) {
+        stars.forEach(star => {
+            const starRating = star.getAttribute('data-rating');
+            if (starRating <= rating) {
+                star.style.color = '#FFD700';
+            } else {
+                star.style.color = '#c0c0c0'; // フィルドされていない星の色
+            }
+        });
+
+        document.getElementById('selected-rating').value = rating;
+    }
+</script>
+
 @stop
+
