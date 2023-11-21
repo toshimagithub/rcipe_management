@@ -30,10 +30,7 @@ Route::prefix('recipes')->group(function () {
     Route::get('/myrecipes', [App\Http\Controllers\RecipeController::class, 'myrecipes'])->name('recipe.myrecipes');
     Route::get('/edit/{recipe}', [App\Http\Controllers\RecipeController::class, 'edit'])->name('recipe.edit');
     Route::patch('/update/{recipe}', [App\Http\Controllers\RecipeController::class, 'update'])->name('recipe.update');
-
-
-
-
+    Route::delete('/destroy/{recipe}', [App\Http\Controllers\RecipeController::class, 'destroy'])->name('recipe.destroy');
 });
 
 

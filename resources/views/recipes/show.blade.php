@@ -1,24 +1,23 @@
-@extends('adminlte::page')
+
+ @extends('adminlte::page')
 
 @section('content_header')
 <style>
-.mb {
-    margin-bottom: 50px !important;
-  }
+    .mb {
+        margin-bottom: 50px !important;
+    }
 </style>
-<div class="mb">
-</div>
 @stop
 
 @section('content')
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-8 mb-2">
-            <div class="star-rating">
+        <div class="mb-3 mx-auto">
+            <div class="star-rating ">
                 <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
                     @csrf <!-- CSRFトークンを追加 -->
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center ">
                         <div class="stars">
                             @for ($i = 1; $i <= 5; $i++)
                                 <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
@@ -34,36 +33,38 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
 
 
 
-    <div class="row justify-content-center align-items-center">
-        <!-- レシピ名と画像 -->
-        <div class="col-md-6 text-center">
-            <h4><b>{{ $recipe->name }}</b></h4>
+    <form action="{{ route('recipe.update', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        <div class="row">
+            <!-- レシピ名と画像 -->
+                <div class="card col-md-6 text-center border-0 shadow-none bg-transparent">
 
-            @if($recipe->image)
-                <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="max-height:300px; width:auto;">
-            @endif
+                <h4><b>{{ $recipe->name }}</b></h4>
+                @if($recipe->image)
+                    <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;">
+                @endif
 
-            <div class="text-sm font-semibold flex flex-row-reverse mb-3">
-                <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
+                <div class="text-sm font-semibold flex flex-row-reverse mb-1">
+                    <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
+                </div>
+
+                <label>コメント</label>
+
+                <textarea class="w-auto py-2 border border-gray-300 rounded-md font-semibold whitespace-pre-line" cols="60" rows="３" readonly style="resize: none; border-radius: 10px;">{{ $recipe->comment }}</textarea>
+
+
             </div>
 
-            <label>コメント</label>
-            <br>
-            <textarea class="w-auto py-2 border border-gray-300 rounded-md font-semibold whitespace-pre-line" cols="60" rows="３" readonly style="resize: none; border-radius: 10px;">{{ $recipe->comment }}</textarea>
-            </div>
-
-        <!-- 材料、作り方、コメント -->
-        <div class="col-md-6">
-            <div class="mb-3">
-                <label>材料</label>
-            </div>
-            @foreach($ingredients as $ingredient)
+            <!-- 材料、作り方、コメント -->
+            <div class="card col-md-6 border-0 shadow-none bg-transparent mt-5">
+                <div class="mb-3">
+                    <label>材料</label>
+                </div>
+                @foreach($ingredients as $ingredient)
                 <div style="text-decoration: underline;">
                     {{ $ingredient->ingredient }}<br>
                 </div>
@@ -74,18 +75,17 @@
             <label>作り方</label>
             @foreach($steps as $step)
                 <div style="text-decoration: underline;">
-                    <span>{{ $step->order }}.{{ $step->description }}</span>
+                    <span>{{ $step->order }}. {{ $step->description }}</span>
 
                     <br>
                 </div>
             @endforeach
-
-
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
-
-
 
 @stop
 
@@ -139,7 +139,15 @@
 
         document.getElementById('selected-rating').value = rating;
     }
+
+    // 更新ボタンがクリックされたときの処理
+    const updateBtn = document.getElementById('updateBtn');
+
+    updateBtn.addEventListener('click', async function () {
+        // 非同期でデータをサーバーに送信して更新する処理を追加
+        // 例: fetchやaxiosを使用してLaravelのルートに対してデータを送信
+        // この部分に適切な非同期処理を追加
+    });
 </script>
 
 @stop
-
