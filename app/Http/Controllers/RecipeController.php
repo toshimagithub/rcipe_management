@@ -195,72 +195,19 @@ public function review(Request $request, Recipe $recipe)
             return redirect()->route('recipe.index');
         }
 
-        // public function update(Request $request, Recipe $recipe)
-        // {
-        //     // バリデーションルールの修正
-        //     $this->validate($request, [
-        //         'name' => 'required|max:255',
-        //         'ingredients' => 'required|array',
-        //         'descriptions' => 'required|array', // フォーム内の名前を修正
-        //         'comment' => 'required|max:255',
-        //         'orders' => 'required|array',
-        //         'image' => 'image|mimes:jpeg,png,jpg,gif|max:1024', // 必須ではなくなりました
-        //     ]);
-        
-        //     // 画像の処理を修正
-        //     if ($request->hasFile('image')) {
-        //         $original = $request->file('image')->getClientOriginalName();
-        //         $name = date('Ymd_His') . '_' . $original;
-        //         $request->file('image')->move('storage/images', $name);
-        //     } else {
-        //         // 画像を変更しない場合は元の画像のファイル名を設定
-        //         $name = $recipe->image;
-        //     }
-        
-        //     // レシピ情報の更新
-        //     $recipe->name = $request->name;
-        //     $recipe->comment = $request->comment;
-        //     $recipe->image = $name; // 画像の名前を保存
-        
-        //     $recipe->save();
-        
-        //     // 材料の更新
-        //     $ingredients = $request->input('ingredients');
-        //     if (is_array($ingredients)) {
-        //         // 既存の材料を削除
-        //         $recipe->ingredients()->delete();
-        
-        //         foreach ($ingredients as $ingredient) {
-        //             if (!empty($ingredient)) {
-        //                 // 材料をレシピに紐づけて保存
-        //                 $recipe->ingredients()->create(['ingredient' => $ingredient]);
-        //             }
-        //         }
-        //     }
-        
-        //     // ステップの更新
-        //     $steps = $request->input('descriptions');
-        //     $orders = $request->input('orders'); // orders を取得
-        
-        //     if (is_array($steps) && is_array($orders)) {
-        //         // 既存のステップを削除
-        //         $recipe->steps()->delete();
-        
-        //         foreach ($steps as $index => $step) {
-        //             if (!empty($step)) {
-        //                 // ステップをレシピに紐づけて保存
-        //                 $recipe->steps()->create([
-        //                     'description' => $step,
-        //                     'order' => $orders[$index], // 対応する順序を保存
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        
-        //     return redirect()->route('recipe.index');
-        // }
-        
 
+
+            public function destroy(Recipe $recipe)
+        {
+
+            $recipe->ingredients()->delete();
+
+            $recipe->delete();
+
+            return redirect()->route('recipe.index');
+
+
+        }
 
 
 

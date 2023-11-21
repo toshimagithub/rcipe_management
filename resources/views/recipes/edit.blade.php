@@ -1,11 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-<style>
-    .mb {
-        margin-bottom: 50px !important;
-    }
-</style>
+
 @stop
 
 @section('content')
@@ -75,29 +71,37 @@
                     @endforeach
                 </div>
      
-       
                 <br>
                 <!-- 作り方 -->
-                    <div>
-                        <label>作り方</label>
-                    </div>
-                    <div class="steps-container">
-                        <button type="button" class="btn btn-sm btn-primary add-step">＋</button>
-                        @foreach($steps as $step)
-                            <div class="d-flex">
-                                <div class="">
-                                    <a href="#" class="btn btn-xs btn-danger remove-step">削除</a>
-                                </div>
-                                <div class="me-3" style="text-decoration: underline;">
-                                    <input type="text" name="descriptions[]" style="margin-left: 10px; border:none; background-color: transparent; text-decoration: underline; width: 300px;" value="{{ old('descriptions.' . $loop->index, $step->description) }}" placeholder="作り方">
-                                    <br>
-                                </div>
+                <div>
+                    <label>作り方</label>
+                </div>
+                <div class="steps-container">
+                    <button type="button" class="btn btn-sm btn-primary add-step">＋</button>
+                    @foreach($steps as $step)
+                        <div class="d-flex">
+                            <div class="">
+                                <a href="#" class="btn btn-xs btn-danger remove-step">削除</a>
                             </div>
-                        @endforeach
-                    </div>
+                            <div class="me-3" style="text-decoration: underline;">
+                                <input type="text" name="descriptions[]" style="margin-left: 10px; border:none; background-color: transparent; text-decoration: underline; width: 300px;" value="{{ old('descriptions.' . $loop->index, $step->description) }}" placeholder="作り方">
+                                <br>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </form>
+    <div class="row">
+        <div class="card col-md-6 text-center border-0 shadow-none bg-transparent">
+            <form action="{{ route('recipe.destroy', $recipe->id) }}" method="post" onsubmit="return confirm('本当に削除しますか？')">
+                @csrf
+                @method('DELETE')
+                        <button type="submit" class="btn btn-danger" style="width:90px;">削除</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 @stop
@@ -190,7 +194,6 @@
         removeLink.style.height = '24px';
         removeLink.style.marginTop = '2px';
 
-
         const descriptionInput = document.createElement('input');
         descriptionInput.type = 'text';
         descriptionInput.name = 'descriptions[]';
@@ -215,4 +218,3 @@
 </script>
 
 @stop
-
