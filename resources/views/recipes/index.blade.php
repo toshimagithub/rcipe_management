@@ -29,7 +29,11 @@
     </div>
 @endforeach
 </div>
-
+<footer class="small">
+    <div class="mt-4">
+        {{ $recipes->links('pagination::bootstrap-5') }}
+    </div>
+</footer>
 
 
 

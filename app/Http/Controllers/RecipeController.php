@@ -17,7 +17,7 @@ class RecipeController extends Controller
     {
         $user = auth()->user();
 
-        $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->get();
+        $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->paginate(6);
 
         return view('recipes.index', compact('recipes'));
     }
@@ -114,7 +114,7 @@ public function review(Request $request, Recipe $recipe)
         $recipes = Recipe::with(['user', 'ingredients'])
         ->where('user_id', $user->id)
         ->orderBy('updated_at', 'desc')
-        ->get();
+        ->paginate(6);
 
         // 取得したレシピをビューに渡して表示
         return view('recipes.myrecipes', compact('recipes'));

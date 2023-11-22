@@ -7,6 +7,17 @@
 @stop
 
 @section('content')
+
+<form class="form-inline">
+    <div class="input-group">
+      <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-sidebar" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
     <div class="row">
         <div class="col-md-10">
             @if ($errors->any())
