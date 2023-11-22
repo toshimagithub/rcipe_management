@@ -15,8 +15,6 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
-
         $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->paginate(6);
 
         return view('recipes.index', compact('recipes'));
@@ -47,6 +45,7 @@ class RecipeController extends Controller
         }
 
         $recipes = $user->recipes()->create([
+            'user_id' => $user->id, // ユーザーIDを明示的に設定
             'name'=>$request->name,
             'comment'=>$request->comment,
             'image'=>$name,
@@ -111,7 +110,7 @@ public function review(Request $request, Recipe $recipe)
         $user = auth()->user();
 
         // ログインユーザーが投稿したレシピを取得
-        $recipes = Recipe::with(['user', 'ingredients'])
+        $recipes = Recipe::with(['user'])
         ->where('user_id', $user->id)
         ->orderBy('updated_at', 'desc')
         ->paginate(6);
@@ -119,6 +118,14 @@ public function review(Request $request, Recipe $recipe)
         // 取得したレシピをビューに渡して表示
         return view('recipes.myrecipes', compact('recipes'));
         }
+
+    //     public function index()
+    // {
+
+    //     $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->paginate(6);
+
+    //     return view('recipes.index', compact('recipes'));
+    // }
 
         public function edit( Recipe $recipe)
         {
@@ -209,7 +216,18 @@ public function review(Request $request, Recipe $recipe)
 
         }
 
+        public function rating(Recipe $recipe)
+        {
+            $user = auth()->user();
 
+            $recipes = $user->recipes()
+                ->orderBy('updated_at', 'desc')
+                ->paginate(6);
+
+
+
+            return view('recipes.rating', compact('recipes'));
+        }
 
 
 

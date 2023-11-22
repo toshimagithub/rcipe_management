@@ -30,12 +30,15 @@ class User extends Authenticatable
 
     public function recipes()
     {
-        return $this->hasMany(Recipe::class);
+        return $this->belongsToMany(Recipe::class,'recipes_reviews','user_id','recipe_id')->withPivot('star');
     }
+
+    
+
 
     public function recipesreview()
     {
-        return $this->hasMany(RecipesReview::class);
+        return $this->belongsToMany(Recipes::class);
     }
 
   

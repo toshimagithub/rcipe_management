@@ -302,8 +302,8 @@ return [
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
-            'text' => '評価したレシピ',
-            'url'  => 'recipes',
+            'text' => 'マイレビュー',
+            'url'  => 'recipes/rating',
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
@@ -316,6 +316,7 @@ return [
             'url'  => 'recipes/myrecipes',
             'icon' => 'fas fa-fw fa-utensils',
         ],
+      
 
 
 

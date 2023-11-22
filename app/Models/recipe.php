@@ -15,6 +15,7 @@ class Recipe extends Model
         'user_id',
         'name',
         'comment',
+        'updated_at',
         'image',
     ];
 
