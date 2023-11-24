@@ -4,8 +4,8 @@
 @section('content_header')
 <div class="row">
     <div class="col-md-4">
-        {{-- データを登録するわけではないから methodがgetになる --}}
-    <form id="rating-form" method="get" action="{{ route('recipe.sortRating') }}">
+       <form id="rating-form" method="post" action="{{ route('recipe.sortRating') }}">
+            @csrf
             <div id="star-rating">
                 @for ($i = 1; $i <= 5; $i++)
                 <span class="bi bi-star-fill star {{ $i == $star ? 'selected' : '' }}" data-rating="{{ $i }}" style="color: {{ $i <= $star ? '#FFD700' : '#c0c0c0' }}"></span>
@@ -47,7 +47,9 @@
                         <span class="bi bi-star" data-rating="{{ $i }}" style="color: #c0c0c0;"></span>
                     @endif
                 @endfor
+
                 <br>
+   
         </a>
         <strong>{{ $recipe->name }}</strong>
         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
@@ -68,9 +70,13 @@
 
 <footer class="small">
     <div class="mt-4">
-        {{ $recipes->appends(request()->input())->links('pagination::bootstrap-5') }}
+        {{ $recipes->links('pagination::bootstrap-5') }}
     </div>
 </footer>
+
+
+
+
 
 
 @stop

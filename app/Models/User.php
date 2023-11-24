@@ -28,20 +28,23 @@ class User extends Authenticatable
         'password',
     ];
 
-    public function recipes()
+    public function recipe()
     {
         return $this->belongsToMany(Recipe::class,'recipes_reviews','user_id','recipe_id')->withPivot('star');
     }
 
-    
 
 
     public function recipesreview()
     {
-        return $this->belongsToMany(Recipes::class);
+        return $this->hasMany(RecipesReview::class);
     }
 
-  
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class);
+    }  
 
     /**
      * The attributes that should be hidden for serialization.

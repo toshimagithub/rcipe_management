@@ -6,6 +6,9 @@
 
 @section('content')
 
+@include('common.errors')   
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="mb-3 mx-auto">

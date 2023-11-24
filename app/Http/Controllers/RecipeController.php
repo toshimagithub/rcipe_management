@@ -15,8 +15,9 @@ class RecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->paginate(6);
+        $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
 
+    // dd($recipes);
         return view('recipes.index', compact('recipes'));
     }
     public function create()
@@ -112,7 +113,7 @@ public function review(Request $request, Recipe $recipe)
         // ログインユーザーが投稿したレシピを取得
         $recipes = Recipe::with(['user'])
         ->where('user_id', $user->id)
-        ->orderBy('updated_at', 'desc')
+        ->orderBy('created_at', 'desc')
         ->paginate(6);
 
         // 取得したレシピをビューに渡して表示
@@ -199,7 +200,7 @@ public function review(Request $request, Recipe $recipe)
                 }
             }
 
-            return redirect()->route('recipe.index');
+            return redirect()->route('recipe.show', $recipe->id);
         }
 
 
@@ -213,22 +214,38 @@ public function review(Request $request, Recipe $recipe)
 
             return redirect()->route('recipe.index');
 
-
         }
 
         public function rating(Recipe $recipe)
         {
             $user = auth()->user();
+            $star = null;
 
-            $recipes = $user->recipes()
+            $recipes = $user->recipe()
                 ->orderBy('updated_at', 'desc')
                 ->paginate(6);
 
 
-
-            return view('recipes.rating', compact('recipes'));
+            return view('recipes.rating', compact('recipes','star'));
         }
 
+
+        public function sortRating(Request $request)
+        {
+            // 認証済みユーザーを取得
+            $user = auth()->user();
+            // フォームから評価を取得
+            $star = $request->input('star');
+
+            // ユーザーが評価したレシピを取得
+            $recipes = $user->recipe()
+                ->wherePivot('star', $star) // 中間テーブルの star カラムで絞り込む
+                ->orderBy('updated_at', 'desc')
+                ->paginate(6);
+
+            // レシピ一覧ページにリダイレクト
+            return view('recipes.rating', compact('recipes', 'star'));
+        }
 
 
 }

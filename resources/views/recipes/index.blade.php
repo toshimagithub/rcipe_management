@@ -12,22 +12,27 @@
     @foreach ($recipes as $recipe)
     <div class="col-md-4">
         <a href="{{ route('recipe.show', [$recipe->id]) }}">
-            @if ($recipe->image)
-                @if ($recipe->updated_at->diffInDays(now()) < 1 || $recipe->ingredients->updated_at->diffInDays(now()) < 1 || $recipe->steps->updated_at->diffInDays(now()) < 1)
-                    <div class="ribbon-wrapper ribbon-lg">
-                        <div class="ribbon bg-warning">
-                            NEW
-                        </div>
+            @if ($recipe->image &&($recipe->created_at->diffInDays(now()) < 1 ))
+                <div class="ribbon-wrapper ribbon-lg">
+                    <div class="ribbon bg-warning">
+                        NEW
                     </div>
-                @endif
-                <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
-                <br>
+                </div>
             @endif
+            <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
+            <br>
         </a>
-        <strong>{{ $recipe->name }}</strong>
-        <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
+        <div class="row">
+            <div class="col-md-7 text-right" >
+                <strong>{{ $recipe->name }}</strong>
+            </div>
+            <div class="col-md-5 text-center">
+                <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
+            </div>
+        </div>
     </div>
-@endforeach
+    @endforeach
+
 </div>
 <footer class="small">
     <div class="mt-4">

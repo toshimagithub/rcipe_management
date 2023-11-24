@@ -15,9 +15,9 @@ class Recipe extends Model
         'user_id',
         'name',
         'comment',
-        'updated_at',
         'image',
     ];
+    
 
     public function user()
     {
@@ -35,9 +35,9 @@ class Recipe extends Model
     }
 
     public function recipesreview()
-    {
-        return $this->hasMany(RecipesReview::class);
-    }
+{
+    return $this->hasMany(RecipesReview::class, 'recipe_id', 'id');
+}
 
 
 }

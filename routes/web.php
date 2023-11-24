@@ -32,6 +32,7 @@ Route::prefix('recipes')->group(function () {
     Route::patch('/update/{recipe}', [App\Http\Controllers\RecipeController::class, 'update'])->name('recipe.update');
     Route::delete('/destroy/{recipe}', [App\Http\Controllers\RecipeController::class, 'destroy'])->name('recipe.destroy');
     Route::get('/rating', [App\Http\Controllers\RecipeController::class, 'rating'])->name('recipe.rating');
+    Route::get('/sortRating', [App\Http\Controllers\RecipeController::class, 'sortRating'])->name('recipe.sortRating');
 });
 
 
