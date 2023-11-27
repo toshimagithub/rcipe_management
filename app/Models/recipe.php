@@ -34,10 +34,15 @@ class Recipe extends Model
         return $this->hasMany(Step::class);
     }
 
-    public function recipesreview()
-{
-    return $this->hasMany(RecipesReview::class, 'recipe_id', 'id');
-}
+        public function recipesreview()
+    {
+        return $this->hasMany(RecipesReview::class);
+    }
+
+    public function averageStar()
+    {
+        return $this->recipesreview->avg('star');
+    }
 
 
 }

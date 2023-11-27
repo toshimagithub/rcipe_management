@@ -49,8 +49,16 @@
                 @endfor
                 <br>
         </a>
-        <strong>{{ $recipe->name }}</strong>
-        <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
+                <div class="row">
+            <div class="col-md-4" >
+            </div>
+            <div class="col-md-4 " >
+                <strong>{{ $recipe->name }}</strong>
+            </div>
+            <div class="col-md-4 text-right">
+                <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
+            </div>
+        </div>
     </div>
 @endforeach
 

@@ -33,6 +33,10 @@ Route::prefix('recipes')->group(function () {
     Route::delete('/destroy/{recipe}', [App\Http\Controllers\RecipeController::class, 'destroy'])->name('recipe.destroy');
     Route::get('/rating', [App\Http\Controllers\RecipeController::class, 'rating'])->name('recipe.rating');
     Route::get('/sortRating', [App\Http\Controllers\RecipeController::class, 'sortRating'])->name('recipe.sortRating');
+    Route::get('/best/index', [App\Http\Controllers\RecipeController::class, 'bestIndex'])->name('recipe.bestIndex');
+    Route::get('/worst/index', [App\Http\Controllers\RecipeController::class, 'worstIndex'])->name('recipe.worstIndex');
+    Route::get('/oldest/index', [App\Http\Controllers\RecipeController::class, 'oldestIndex'])->name('recipe.oldestIndex');
+
 });
 
 

@@ -13,11 +13,20 @@ use App\Models\RecipesReview;
 
 class RecipeController extends Controller
 {
-    public function index()
+    public function index(Recipe $recipe)
     {
+        $user = auth()->user();
+
         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
 
-    // dd($recipes);
+        foreach($recipes as $recipe) {
+        $recipe->averageStar = $recipe->recipesreview->avg('star');
+       //$recipe->averageStarは変数
+       //$recipe->recipesreview->avg('star');ここの部分で星の平均を取得
+      // viewの @if ($i <= $recipe->averageStar)は($i <=$recipe->recipesreview->avg('star'))これでも表示できる
+        }
+
+        // dd($recipes);
         return view('recipes.index', compact('recipes'));
     }
     public function create()
@@ -106,7 +115,7 @@ public function review(Request $request, Recipe $recipe)
     return redirect()->route('recipe.show', $recipe->id);
 
 }
-    public function myrecipes()
+    public function myrecipes(Recipe $recipe)
     {
         $user = auth()->user();
 
@@ -115,18 +124,13 @@ public function review(Request $request, Recipe $recipe)
         ->where('user_id', $user->id)
         ->orderBy('created_at', 'desc')
         ->paginate(6);
-
+        foreach ($recipes as $recipe) {
+            $recipe->averageStar = $recipe->recipesreview->avg('star');
+        }
         // 取得したレシピをビューに渡して表示
         return view('recipes.myrecipes', compact('recipes'));
         }
 
-    //     public function index()
-    // {
-
-    //     $recipes = Recipe::with(['user','ingredients'])->orderBy('updated_at', 'desc')->paginate(6);
-
-    //     return view('recipes.index', compact('recipes'));
-    // }
 
         public function edit( Recipe $recipe)
         {
@@ -222,7 +226,7 @@ public function review(Request $request, Recipe $recipe)
             $star = null;
 
             $recipes = $user->recipe()
-                ->orderBy('updated_at', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(6);
 
 
@@ -240,12 +244,65 @@ public function review(Request $request, Recipe $recipe)
             // ユーザーが評価したレシピを取得
             $recipes = $user->recipe()
                 ->wherePivot('star', $star) // 中間テーブルの star カラムで絞り込む
-                ->orderBy('updated_at', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(6);
 
             // レシピ一覧ページにリダイレクト
             return view('recipes.rating', compact('recipes', 'star'));
         }
 
+
+        public function bestIndex(Request $request)
+        {
+            $user = auth()->user();
+
+            $recipes = Recipe::with(['user', 'recipesreview'])
+            ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
+            ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
+            ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+            ->orderByRaw('AVG(recipes_reviews.star) DESC')
+            ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
+            ->paginate(6);
+
+
+    foreach($recipes as $recipe) {
+        $recipe->averageStar = $recipe->recipesreview->avg('star');
+        }
+            return view('recipes.index', compact('recipes'));
+        }
+
+        public function worstIndex(Request $request)
+        {
+            $user = auth()->user();
+
+            $recipes = Recipe::with(['user', 'recipesreview'])
+            ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
+            ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
+            ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+            ->orderByRaw('AVG(recipes_reviews.star) asc')
+            ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
+            ->paginate(6);
+
+
+    foreach($recipes as $recipe) {
+        $recipe->averageStar = $recipe->recipesreview->avg('star');
+        }
+            return view('recipes.index', compact('recipes'));
+        }
+
+
+        public function oldestIndex(Request $request)
+        {
+            $user = auth()->user();
+
+        $recipes = Recipe::with(['user'])->orderBy('created_at', 'asc')->paginate(6);
+
+        foreach($recipes as $recipe) {
+        $recipe->averageStar = $recipe->recipesreview->avg('star');
+        }
+
+        // dd($recipes);
+        return view('recipes.index', compact('recipes'));
+    }
 
 }
