@@ -308,7 +308,7 @@ return [
         ],
         [
             'text' => 'ランキング',
-            'url'  => 'recipes',
+            'url'  => 'recipes/ranking',
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [

@@ -36,6 +36,7 @@ Route::prefix('recipes')->group(function () {
     Route::get('/best/index', [App\Http\Controllers\RecipeController::class, 'bestIndex'])->name('recipe.bestIndex');
     Route::get('/worst/index', [App\Http\Controllers\RecipeController::class, 'worstIndex'])->name('recipe.worstIndex');
     Route::get('/oldest/index', [App\Http\Controllers\RecipeController::class, 'oldestIndex'])->name('recipe.oldestIndex');
+    Route::get('/ranking', [App\Http\Controllers\RecipeController::class, 'ranking'])->name('recipe.ranking');
 
 });
 

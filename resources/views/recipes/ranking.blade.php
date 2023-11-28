@@ -2,31 +2,10 @@
 
 @section('content_header')
     <div class="row">
-        <div class="col-md-4 d-flex align-items-center">
-            <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    並び替え
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('recipe.bestIndex') }}">評価が高い順</a></li>
-                    <li><a class="dropdown-item" href="{{ route('recipe.worstIndex') }}">評価が低い順</a></li>
-                    <li><a class="dropdown-item" href="{{ route('recipe.oldestIndex') }}">投稿が古い順</a></li>
-                </ul>
-            </div>
-            <div class="ms-3">
-                @if(request()->routeIs('recipe.bestIndex'))
-                <b>評価が高い順</b>
-                @endif
-                @if(request()->routeIs('recipe.worstIndex'))
-                <b>評価が低い順</b>
-                @endif
-                @if(request()->routeIs('recipe.oldestIndex'))
-                <b>投稿が古い順</b>
-                @endif
-            </div>
+        <div class="col-md-4">
         </div>
         <div class="col-md-4 text-center">
-            <h1>レシピ一覧</h1>
+            <h1>ランキング</h1>
         </div>
     </div>
 @stop
@@ -59,7 +38,8 @@
                                 @endif
                             @endif
                         @endfor
-                    </div>
+                        {{ number_format($recipe->averageStar(), 1) }}
+                      </div>
                     <div class="col-md-4" style="height: 25px;">
                         <strong>{{ $recipe->name }}</strong>
                     </div>

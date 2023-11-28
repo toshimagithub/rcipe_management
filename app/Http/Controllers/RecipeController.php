@@ -252,6 +252,19 @@ public function review(Request $request, Recipe $recipe)
         }
 
 
+    //     public function bestIndex(Request $request,Recipe $recipe)
+    //     {
+    //         $user = auth()->user();
+
+    //           // ユーザーに関連するレシピを取得し、平均評価で並べ替えてページネーション
+    //         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
+
+    // foreach($recipes as $recipe) {
+    //     $recipe->averageStar = $recipe->recipesreview->avg('star');
+    //     }
+    //         return view('recipes.index', compact('recipes'));
+    //     }
+
         public function bestIndex(Request $request)
         {
             $user = auth()->user();
@@ -305,4 +318,22 @@ public function review(Request $request, Recipe $recipe)
         return view('recipes.index', compact('recipes'));
     }
 
+    public function ranking(Recipe $recipe)
+    {
+        $user = auth()->user();
+
+        $recipes = Recipe::with(['user', 'recipesreview'])
+        ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
+        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
+        ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+        ->orderByRaw('AVG(recipes_reviews.star) DESC')
+        ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
+        ->paginate(6);
+
+
+foreach($recipes as $recipe) {
+    $recipe->averageStar = $recipe->recipesreview->avg('star');
+    }
+        return view('recipes.ranking', compact('recipes'));
+    }
 }
