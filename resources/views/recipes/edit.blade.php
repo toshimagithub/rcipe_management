@@ -6,7 +6,7 @@
 
 @section('content')
 
-@include('common.errors')   
+@include('common.errors')
 
 
 <div class="container">
@@ -41,7 +41,7 @@
                 <div class="max-auto">
                     <input type="file" class="text-center" placeholder="写真" name="image">
                 </div>
-                <input type="text" name="name" class="form-control text-center" style="border: none; background-color: transparent; text-decoration: underline;" value="{{ old('name', $recipe->name) }}">
+                <input type="text" name="name" class="form-control text-center " style="border: none; background-color: transparent; text-decoration: underline; font-weight: bold;" value="{{ old('name', $recipe->name) }}">
                 @if($recipe->image)
                     <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;" name="image">
                 @endif

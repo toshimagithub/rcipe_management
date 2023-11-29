@@ -38,8 +38,8 @@ class RecipeController extends Controller
     {
         $this->validate($request,[
             'name'=>'required|max:255',
-            'ingredients'=>'required',
-            'descriptions'=>'required',
+            'ingredients.*' => 'required|max:255',
+            'descriptions.*' => 'required|max:255',
             'comment'=>'required|max:255',
             'image'=>'image|mimes:jpeg,png,jpg,gif|max:1024',
         ]);
@@ -61,10 +61,10 @@ class RecipeController extends Controller
             'image'=>$name,
         ]);
 
-    $ingredients = $request->input('ingredients');
-    foreach($ingredients as $ingredient ){
-        $recipes->ingredients()->create(['ingredient'=>$ingredient]);
-    }
+        $ingredients = $request->input('ingredients');
+        foreach ($ingredients as $ingredient) {
+            $recipes->ingredients()->create(['ingredient' => $ingredient]);
+        }
 
     $descriptions = $request->input('descriptions');
     $order = 1; // 最初の順番
@@ -154,7 +154,7 @@ public function review(Request $request, Recipe $recipe)
                 'comment' => 'required|max:255',
                 'image' => 'image|mimes:jpeg,png,jpg,gif|max:1024', // 必須ではなくなりました
             ]);
-
+        
             // 画像の処理を修正
             if ($request->hasFile('image')) {
                 $original = $request->file('image')->getClientOriginalName();
@@ -164,20 +164,20 @@ public function review(Request $request, Recipe $recipe)
                 // 画像を変更しない場合は元の画像のファイル名を設定
                 $name = $recipe->image;
             }
-
+        
             // レシピ情報の更新
             $recipe->name = $request->name;
             $recipe->comment = $request->comment;
             $recipe->image = $name; // 画像の名前を保存
-
+        
             $recipe->save();
-
+        
             // 材料の更新
             $ingredients = $request->input('ingredients');
             if (is_array($ingredients)) {
                 // 既存の材料を削除
                 $recipe->ingredients()->delete();
-
+        
                 foreach ($ingredients as $ingredient) {
                     if (!empty($ingredient)) {
                         // 材料をレシピに紐づけて保存
@@ -185,27 +185,30 @@ public function review(Request $request, Recipe $recipe)
                     }
                 }
             }
-
+        
             // 作り方の更新
             $descriptions = $request->input('descriptions');
             $order = 1; // 最初の順番
-
+        
             if (is_array($descriptions)) {
                 // 既存のステップを削除
                 $recipe->steps()->delete();
-
+        
                 foreach ($descriptions as $description) {
-                    $recipe->steps()->create([
-                        'description' => $description,
-                        'order' => $order,
-                    ]);
-                    // 次の順番に進む
-                    $order++;
+                    if (!empty($description)) {
+                        $recipe->steps()->create([
+                            'description' => $description,
+                            'order' => $order,
+                        ]);
+                        // 次の順番に進む
+                        $order++;
+                    }
                 }
             }
-
+        
             return redirect()->route('recipe.show', $recipe->id);
         }
+        
 
 
 
@@ -318,22 +321,71 @@ public function review(Request $request, Recipe $recipe)
         return view('recipes.index', compact('recipes'));
     }
 
-    public function ranking(Recipe $recipe)
-    {
-        $user = auth()->user();
+    public function ranking(Request $request)
+{
+    $user = auth()->user();
 
-        $recipes = Recipe::with(['user', 'recipesreview'])
-        ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
-        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
-        ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+    $perPage = 6; // 1ページあたりのアイテム数
+
+    // ページネーションのページ番号を取得
+    $page = $request->query('page', 1);
+
+    // ページごとにランキングデータを取得
+    $recipes = Recipe::with(['user', 'recipesreview'])
+        ->select('recipes.*')
+        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id')
+        ->groupBy('recipes.id')
         ->orderByRaw('AVG(recipes_reviews.star) DESC')
-        ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
-        ->paginate(6);
+        ->orderByDesc('recipes.created_at')
+        ->paginate($perPage); // ページネーションを行う
+
+    // 順位を計算して $recipes に追加
+    $rank = ($page - 1) * $perPage + 1; // ページごとに順位を計算し直すための基準となる値
+    $prevStar = null; // 前のレシピの平均スター数を保持するための変数
+
+    foreach ($recipes as $recipe) {
+        $recipe->averageStar = $recipe->recipesreview->avg('star');
+
+        if ($prevStar !== null && $recipe->averageStar < $prevStar) {
+            $rank++;
+        }
+
+        $recipe->rank = $rank;
+        $prevStar = $recipe->averageStar;
+    }
+
+    return view('recipes.ranking', compact('recipes'));
+        }
+
+        public function search(Request $request)
+        {
+            $keyword = $request->input('search');
+
+            // dd($keyword);
+                $recipes = Recipe::with(['user', 'ingredients', 'recipesreview'])
+                    ->where(function ($query) use ($keyword) {
+                        $query->where('name', 'like', '%' . $keyword . '%')
+                            ->orWhere('id', 'like', '%' . $keyword . '%')
+                            ->orWhere('comment', 'like', '%' . $keyword . '%')
+                            ->orWhereHas('user', function ($userQuery) use ($keyword) {
+                                $userQuery->where('name', 'like', '%' . $keyword . '%');
+                            })
+                            ->orWhereHas('ingredients', function ($ingredientsQuery) use ($keyword) {
+                                $ingredientsQuery->where('ingredient', 'like', '%' . $keyword . '%');
+                            });
+                    })
+                    ->orderBy('updated_at', 'desc')
+                    ->paginate(6);
 
 
-foreach($recipes as $recipe) {
-    $recipe->averageStar = $recipe->recipesreview->avg('star');
-    }
-        return view('recipes.ranking', compact('recipes'));
-    }
+                foreach ($recipes as $recipe) {
+                    $recipe->averageStar = $recipe->recipesreview->avg('star');
+                }
+
+                return view('recipes.search', compact('recipes', 'keyword'));
+            }
+
+
+
+
 }

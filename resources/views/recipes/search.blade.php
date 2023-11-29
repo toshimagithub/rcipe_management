@@ -5,8 +5,7 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4 text-center">
-            <h1>ランキング</h1>
-        </div>
+          <h1>検索結果: "{{ $keyword }}"</h1>        </div>
     </div>
 @stop
 
@@ -14,9 +13,6 @@
     <div class="row text-center">
         @foreach ($recipes as $recipe)
             <div class="col-md-4">
-              <div class="text-left" >
-                 <strong> {{ $recipe->rank }}位 </strong>
-               </div>
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                         <div class="ribbon-wrapper ribbon-lg">
@@ -41,22 +37,29 @@
                                 @endif
                             @endif
                         @endfor
-                        {{ number_format($recipe->averageStar(), 1) }}
-                      </div>
+                    </div>
                     <div class="col-md-4" style="height: 25px;">
                         <strong>{{ $recipe->name }}</strong>
                     </div>
                     <div class="col-md-4 texe-center" style="height: 25px;">
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
-                        
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
+    @if ($recipes->isEmpty())
+    <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4 text-center" style="margin-top: 100px">
+        <p>ありません</p>
+    </div>
+</div>
+@endif
     <footer class="small">
         <div class="mt-4">
-            {{ $recipes->links('pagination::bootstrap-5') }}
+          {{ $recipes->appends(request()->input())->links('pagination::bootstrap-5') }}
         </div>
     </footer>
 @stop

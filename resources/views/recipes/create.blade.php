@@ -10,16 +10,7 @@
 
 
 
-<form class="form-inline">
-    <div class="input-group">
-    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-    <div class="input-group-append">
-        <button class="btn btn-sidebar" type="submit">
-        <i class="fas fa-search"></i>
-        </button>
-    </div>
-    </div>
-</form>
+
     <div class="row">
         <div class="col-md-10">
             @if ($errors->any())
@@ -42,7 +33,7 @@
 
                         <div class="form-group">
                             <label for="name">料理名</label>
-                            <input type="text" class="form-control"  name="name" placeholder="名前">
+                            <input type="text" class="form-control"  name="name" placeholder="名前" value="{{ old('name') }}">
                         </div>
 
                         <div class="form-group">
@@ -51,12 +42,28 @@
                             <button type="button" class="my-1 btn btn-sm btn-primary add-ingredient">＋</button>
                             <br>
                             <div class="ingredients-container">
-                            <div class="mb-2 ingredient-item">
-                                <input type="text"  class="form-control" name="ingredients[]" placeholder="材料"></input>
-                                <a href="#" class="btn btn-sm btn-danger remove-ingredient">削除</a>
-                            </div>
+                                <div class="mb-2 ingredient-item">
+                                    <input type="text" class="form-control" name="ingredients[]" placeholder="材料" value="{{ old('ingredients.0') }}">
+                                    <a href="#" class="btn btn-sm btn-danger remove-ingredient">削除</a>
+                                </div>
+                        
+                                @php
+                                    $oldIngredients = old('ingredients', []); // バリデーションエラーがある場合に古い値を取得し、デフォルトで空の配列を使用
+                                    $count = count($oldIngredients);
+                                @endphp
+                        
+                                @if($count > 1)
+                                    @for($i = 1; $i < $count; $i++)
+                                        <div class="mb-2 ingredient-item">
+                                            <input type="text" class="form-control" name="ingredients[]" placeholder="材料 {{ $i + 1 }}." value="{{ $oldIngredients[$i] }}">
+                                            <a href="#" class="btn btn-sm btn-danger remove-ingredient">削除</a>
+                                        </div>
+                                    @endfor
+                                @endif
                             </div>
                         </div>
+                        
+
 
                         <div class="form-group">
                             <label for="exampleFormControlInput1">作り方</label>
@@ -64,16 +71,31 @@
                             <button type="button" class="my-1 btn btn-sm btn-primary add-step">＋</button>
                             <br>
                             <div class="steps-container">
+
                                 <div class="mb-2 step-item">
-                                    <input type="text" class="form-control" name="descriptions[]" placeholder="作り方 1.">
+                                    <input type="text" class="form-control" name="descriptions[]" placeholder="作り方 1." value="{{ old('descriptions.0') }}">
                                     <a href="#" class="btn btn-sm btn-danger remove-step">削除</a>
                                 </div>
+
+                                @php
+                                    $oldDescriptions = old('descriptions', []); // バリデーションエラーがある場合に古い値を取得し、デフォルトで空の配列を使用
+                                    $count = count($oldDescriptions);
+                                @endphp
+
+                                @if($count > 1)
+                                    @for($i = 1; $i < $count; $i++)
+                                        <div class="mb-2 step-item">
+                                            <input type="text" class="form-control" name="descriptions[]" placeholder="作り方 {{ $i + 1 }}." value="{{ $oldDescriptions[$i] }}">
+                                            <a href="#" class="btn btn-sm btn-danger remove-step">削除</a>
+                                        </div>
+                                    @endfor
+                                @endif
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="detail">コメント</label>
-                            <input type="text" class="form-control" name="comment" placeholder="詳細説明">
+                            <input type="text" class="form-control" name="comment" placeholder="詳細説明" value="{{ old('comment') }}">
                         </div>
                     </div>
 

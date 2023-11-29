@@ -292,8 +292,18 @@ return [
 
     'menu' => [
         [
+            'type'       => 'sidebar-custom-search',
+            'text'       => 'search',
+            'url'        => 'recipes/search',
+            'method'     => 'get',
+            'input_name' => 'search',
+            'id'         => 'sidebarSearch'
+        ],
+
+        [
             'text'       => 'レシピ一覧',
-            'url'        => 'recipes/',
+            // 'url'        => 'recipes/',
+            'route' => 'recipe.index',
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
