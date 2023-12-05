@@ -299,7 +299,6 @@ return [
             'input_name' => 'search',
             'id'         => 'sidebarSearch'
         ],
-
         [
             'text'       => 'レシピ一覧',
             // 'url'        => 'recipes/',
@@ -326,7 +325,12 @@ return [
             'url'  => 'recipes/myrecipes',
             'icon' => 'fas fa-fw fa-utensils',
         ],
-      
+        [
+            'text' => '管理者ピックアップ',
+            'route' => 'admin.index',
+            'icon' => 'fas fa-fw fa-utensils',
+        ],
+
 
 
 

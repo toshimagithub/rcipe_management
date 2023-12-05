@@ -38,6 +38,12 @@ Route::prefix('recipes')->group(function () {
     Route::get('/oldest/index', [App\Http\Controllers\RecipeController::class, 'oldestIndex'])->name('recipe.oldestIndex');
     Route::get('/ranking', [App\Http\Controllers\RecipeController::class, 'ranking'])->name('recipe.ranking');
     Route::get('/search', [App\Http\Controllers\RecipeController::class, 'search'])->name('recipe.search');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+    Route::patch('/recommend/{recipe}', [App\Http\Controllers\AdminController::class, 'recommend'])->name('admin.recommend');
+    Route::patch('/unRecommend/{recipe}', [App\Http\Controllers\AdminController::class, 'unRecommend'])->name('admin.unRecommend');
 
 });
 

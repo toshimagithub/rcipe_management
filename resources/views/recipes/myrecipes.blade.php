@@ -16,8 +16,6 @@
                             </div>
                         </div>
                     @endif
-
-
                         <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                         <br>
                 </a>

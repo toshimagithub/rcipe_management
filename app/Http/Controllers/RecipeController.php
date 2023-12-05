@@ -146,6 +146,8 @@ public function review(Request $request, Recipe $recipe)
 
         public function update(Request $request, Recipe $recipe)
         {
+
+            dd($recipe);
             // バリデーションルールの修正
             $this->validate($request, [
                 'name' => 'required|max:255',
