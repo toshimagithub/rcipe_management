@@ -18,7 +18,7 @@
 @section('content')
     <div class="row text-center">
         @foreach ($users as $user)
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="card col-md-12 w-50">
             <strong>{{ $user->name }}</strong>
             <div class="row py-3">

@@ -85,9 +85,7 @@ public function show(Recipe $recipe)
 {
     $ingredients = $recipe->ingredients;
     $steps = $recipe->steps;
-    $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
-    ->where('user_id', auth()->user()->id)
-    ->first(); // レビュー情報を取得 １件だけ返ってくる。
+    $recipesReview = $recipe->averageStar(); // 平均評価を取得
     return view('recipes.show',compact('recipe','ingredients','steps', 'recipesReview'));
 }
 
@@ -147,7 +145,6 @@ public function review(Request $request, Recipe $recipe)
         public function update(Request $request, Recipe $recipe)
         {
 
-            dd($recipe);
             // バリデーションルールの修正
             $this->validate($request, [
                 'name' => 'required|max:255',

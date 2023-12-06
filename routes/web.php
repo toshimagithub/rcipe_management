@@ -50,4 +50,10 @@ Route::prefix('admin')->group(function () {
 });
 
 
+Route::get('pdf/{recipe}',[App\Http\Controllers\PDFController::class, 'index'])->name('pdf');
+
+
+
+
+
 
