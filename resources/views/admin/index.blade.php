@@ -51,7 +51,7 @@
                     <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                     <br>
                 </a>
-                <div class="row" >
+                <div class="row mb-3" >
                     <div class="col-md-4" style="height: 25px;">
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= $recipe->averageStar)

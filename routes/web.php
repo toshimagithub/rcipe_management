@@ -44,7 +44,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     Route::patch('/recommend/{recipe}', [App\Http\Controllers\AdminController::class, 'recommend'])->name('admin.recommend');
     Route::patch('/unRecommend/{recipe}', [App\Http\Controllers\AdminController::class, 'unRecommend'])->name('admin.unRecommend');
-
+    Route::get('/management', [App\Http\Controllers\AdminController::class, 'management'])->name('admin.management');
+    Route::patch('/grant/{user}', [App\Http\Controllers\AdminController::class, 'grant'])->name('admin.grant');
+    Route::patch('/revoke/{user}', [App\Http\Controllers\AdminController::class, 'revoke'])->name('admin.revoke');
 });
 
 

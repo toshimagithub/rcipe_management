@@ -47,4 +47,32 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'おすすめを解除しました。');
     }
+
+
+    public function management(User $user)
+    {
+        $user = auth()->user();
+
+        $users = User::all();
+
+
+        // dd($recipes);
+        return view('admin.grant', compact('users'));
+    }
+
+    public function grant(User $user)
+    {
+        $user->update(['role' => "管理者"]);
+        // $recipe->update(['おすすめ' => 1]);  これでも可
+
+        return redirect()->back()->with('success', '管理者に変更しました。');
+    }
+    public function revoke(User $user)
+    {
+        $user->update(['role' => "ユーザー"]);
+    
+        return redirect()->back()->with('success', 'ユーザーに戻しました。');
+    }
+
+
 }

@@ -40,11 +40,12 @@
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
-                <a href="{{ route('recipe.edit', [$recipe->id]) }}" class="btn btn-warning mt-1">編集</a><br>
+                <div class="py-1">
+                    <a href="{{ route('recipe.edit', [$recipe->id]) }}" class="btn btn-warning mt-1">編集</a><br>
+                </div>
             </div>
         @endforeach
     </div>
-
     <footer class="small">
         <div class="mt-4">
             {{ $recipes->links('pagination::bootstrap-5') }}

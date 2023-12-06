@@ -289,7 +289,6 @@ return [
     |
     */
 
-
     'menu' => [
         [
             'type'       => 'sidebar-custom-search',
@@ -328,6 +327,11 @@ return [
         [
             'text' => '管理者ピックアップ',
             'route' => 'admin.index',
+            'icon' => 'fas fa-fw fa-utensils',
+        ],
+        [
+            'text' => '管理者権限付与',
+            'route' => 'admin.management',
             'icon' => 'fas fa-fw fa-utensils',
         ],
 
