@@ -18,18 +18,10 @@ class AdminController extends Controller
 {
     public function index(Recipe $recipe)
     {
-        $user = auth()->user();
-
         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
-
         foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
-       //$recipe->averageStarは変数
-       //$recipe->recipesreview->avg('star');ここの部分で星の平均を取得
-      // viewの @if ($i <= $recipe->averageStar)は($i <=$recipe->recipesreview->avg('star'))これでも表示できる
         }
-
-        // dd($recipes);
         return view('admin.index', compact('recipes'));
     }
 
@@ -44,21 +36,19 @@ class AdminController extends Controller
     {
         $recipe->update(['おすすめ' => false]);
         // $recipe->update(['おすすめ' => 0]);  これでも可
-
         return redirect()->back()->with('success', 'おすすめを解除しました。');
     }
 
-
     public function management(User $user)
-    {
-        $user = auth()->user();
+{
+    // すべてのユーザーを取得
+    $users = User::all();
+    // 各ユーザーが投稿したレシピの数を取得
+    $userRecipesCount = [];
+   
+    return view('admin.grant', compact('users'));
+}
 
-        $users = User::all();
-
-
-        // dd($recipes);
-        return view('admin.grant', compact('users'));
-    }
 
     public function grant(User $user)
     {
