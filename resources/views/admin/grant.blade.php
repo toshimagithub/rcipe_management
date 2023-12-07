@@ -18,52 +18,52 @@
 
 @section('content')
 <div class="row text-center justify-content-center">
-  @foreach ($users as $user)
-          <div class="card w-75">
-              <div class="row ">
-                  <div class="col-md-4">
-                  </div>
-                  <div class="col-md-4">
-                      <strong>{{ $user->name }}</strong>
-                  </div>
-                  <div class="col-md-4">
-                    <strong>
-                        @if($user->recipes()->count() === 0)
-                        まだレシピを投稿していません
+    @foreach ($users as $user)
+            <div class="card w-75">
+                <div class="row ">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <strong>{{ $user->name }}</strong>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>
+                            @if($user->recipes()->count() === 0)
+                            まだレシピを投稿していません
+                            @else
+                                {{ $user->recipes()->count() }} レシピ
+                            @endif
+                        </strong>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col-md-4">
+                        <strong>
+                        @if ($user->role == "管理者")
+                            <p style="color: green;">管理人</p>
                         @else
-                            {{ $user->recipes()->count() }} レシピ
+                            <p style="color: red;">ユーザー</p>
                         @endif
-                    </strong>
-                  </div>
-              </div>
-              <div class="row py-3">
-                  <div class="col-md-4">
-                    <strong>
-                      @if ($user->role == "管理者")
-                          <p style="color: green;">管理人</p>
-                      @else
-                          <p style="color: red;">ユーザー</p>
-                      @endif
-                    </strong>
-                  </div>
-                  <div class="col-md-4">
-                      <form action="{{ route('admin.grant', [$user->id]) }}" method="post" enctype="multipart/form-data">
-                          @method('PATCH')
-                          @csrf
-                          <button type="submit" class="btn btn-success">管理者にする</button>
-                      </form>
-                  </div>
-                  <div class="col-md-4">
-                      <form action="{{ route('admin.revoke', [$user->id]) }}" method="post" enctype="multipart/form-data">
-                          @method('PATCH')
-                          @csrf
-                          <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
+                        </strong>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="{{ route('admin.grant', [$user->id]) }}" method="post" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
+                            <button type="submit" class="btn btn-success">管理者にする</button>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="{{ route('admin.revoke', [$user->id]) }}" method="post" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
+                            <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-  @endforeach
+    @endforeach
 </div>
 
 @stop

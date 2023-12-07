@@ -1,0 +1,4 @@
+.hover-zoom:hover {
+  transform: scale(1.13);
+  transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
+}

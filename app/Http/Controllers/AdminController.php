@@ -45,7 +45,7 @@ class AdminController extends Controller
     $users = User::all();
     // 各ユーザーが投稿したレシピの数を取得
     $userRecipesCount = [];
-   
+
     return view('admin.grant', compact('users'));
 }
 
@@ -53,14 +53,13 @@ class AdminController extends Controller
     public function grant(User $user)
     {
         $user->update(['role' => "管理者"]);
-        // $recipe->update(['おすすめ' => 1]);  これでも可
 
         return redirect()->back()->with('success', '管理者に変更しました。');
     }
     public function revoke(User $user)
     {
         $user->update(['role' => "ユーザー"]);
-    
+
         return redirect()->back()->with('success', 'ユーザーに戻しました。');
     }
 

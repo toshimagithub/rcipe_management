@@ -38,7 +38,7 @@
                 </div>
             </div>
         @endif
-                <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
+                <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
 
                 @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= $recipe->pivot->star)
@@ -47,9 +47,6 @@
                         <span class="bi bi-star" data-rating="{{ $i }}" style="color: #c0c0c0;"></span>
                     @endif
                 @endfor
-
-                <br>
-   
         </a>
         <strong>{{ $recipe->name }}</strong>
         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->updated_at->diffForHumans() }}</p>
@@ -82,6 +79,8 @@
 @stop
 
 @section('css')
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

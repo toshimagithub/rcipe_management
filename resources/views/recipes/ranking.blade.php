@@ -14,9 +14,9 @@
     <div class="row text-center">
         @foreach ($recipes as $recipe)
             <div class="col-md-4">
-              <div class="text-left" >
-                 <strong> {{ $recipe->rank }}位 </strong>
-               </div>
+                <div class="text-left" >
+                    <strong> {{ $recipe->rank }}位 </strong>
+                </div>
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                         <div class="ribbon-wrapper ribbon-lg">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     @endif
-                    <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
+                    <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                     <br>
                 </a>
                 <div class="row" >
@@ -62,6 +62,8 @@
 @stop
 
 @section('css')
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

@@ -299,8 +299,7 @@ return [
             'id'         => 'sidebarSearch'
         ],
         [
-            'text'       => 'レシピ一覧',
-            // 'url'        => 'recipes/',
+            'text'  => 'レシピ一覧',
             'route' => 'recipe.index',
             'icon' => 'fas fa-fw fa-utensils',
         ],
@@ -324,19 +323,6 @@ return [
             'url'  => 'recipes/myrecipes',
             'icon' => 'fas fa-fw fa-utensils',
         ],
-        [
-            'text' => '管理者ピックアップ',
-            'route' => 'admin.index',
-            'icon' => 'fas fa-fw fa-utensils',
-        ],
-        [
-            'text' => '管理者権限付与',
-            'route' => 'admin.management',
-            'icon' => 'fas fa-fw fa-utensils',
-        ],
-
-
-
 
 
         // AdminLTEデフォルト
