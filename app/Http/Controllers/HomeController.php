@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $recipes = Recipe::orderBy('created_at', 'desc')->select('image','name')->get();
+        $recipes = Recipe::orderBy('created_at', 'desc')->get();
 
         return view('home', compact('recipes'));
     }

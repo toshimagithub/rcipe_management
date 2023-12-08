@@ -25,17 +25,13 @@
 
             <div class="card card-primary">
                 <form action="{{ route('recipe.store') }}" method="POST" enctype="multipart/form-data">
-
                     @csrf
                     <div class="card-body">
-
                         <input type="file" name="image" class="mb-3">
-
                         <div class="form-group">
                             <label for="name">料理名</label>
                             <input type="text" class="form-control"  name="name" placeholder="名前" value="{{ old('name') }}">
                         </div>
-
                         <div class="form-group">
                             <label for="exampleFormControlInput1">材料</label>
                             <br>
@@ -46,12 +42,10 @@
                                     <input type="text" class="form-control" name="ingredients[]" placeholder="材料" value="{{ old('ingredients.0') }}">
                                     <a href="#" class="btn btn-sm btn-danger remove-ingredient">削除</a>
                                 </div>
-                        
                                 @php
                                     $oldIngredients = old('ingredients', []); // バリデーションエラーがある場合に古い値を取得し、デフォルトで空の配列を使用
                                     $count = count($oldIngredients);
                                 @endphp
-                        
                                 @if($count > 1)
                                     @for($i = 1; $i < $count; $i++)
                                         <div class="mb-2 ingredient-item">
@@ -62,26 +56,20 @@
                                 @endif
                             </div>
                         </div>
-                        
-
-
                         <div class="form-group">
                             <label for="exampleFormControlInput1">作り方</label>
                             <br>
                             <button type="button" class="my-1 btn btn-sm btn-primary add-step">＋</button>
                             <br>
                             <div class="steps-container">
-
                                 <div class="mb-2 step-item">
                                     <input type="text" class="form-control" name="descriptions[]" placeholder="作り方 1." value="{{ old('descriptions.0') }}">
                                     <a href="#" class="btn btn-sm btn-danger remove-step">削除</a>
                                 </div>
-
                                 @php
                                     $oldDescriptions = old('descriptions', []); // バリデーションエラーがある場合に古い値を取得し、デフォルトで空の配列を使用
                                     $count = count($oldDescriptions);
                                 @endphp
-
                                 @if($count > 1)
                                     @for($i = 1; $i < $count; $i++)
                                         <div class="mb-2 step-item">
@@ -92,13 +80,11 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="detail">コメント</label>
                             <input type="text" class="form-control" name="comment" placeholder="詳細説明" value="{{ old('comment') }}">
                         </div>
                     </div>
-
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">登録</button>
                     </div>

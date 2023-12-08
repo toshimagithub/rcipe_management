@@ -18,23 +18,49 @@ use PDF;
 
 class PDFController extends Controller
 {
-    // public function index(){
 
-    //     $pdf = PDF::loadView('hello');
-
-    //     return $pdf->download('hello.pdf');
-    // }
-
-
-    public function index(Request $request, Recipe $recipe)
+    public function index($recipeId)
     {
+        // レシピを取得
+        $recipe = Recipe::find($recipeId);
         $ingredients = $recipe->ingredients;
         $steps = $recipe->steps;
-        $recipesReview = $recipe->averageStar();
-        $pdf = PDF::loadView('hello', compact('recipe', 'ingredients', 'steps', 'recipesReview'));
 
+        // PDFに表示するデータやビューを設定
+        $data = [
+            'recipe' => $recipe,
+            'ingredients' => $ingredients,
+            'steps' => $steps,
+        ];
+
+        // PDFを生成
+        $pdf = PDF::loadView('hello', $data);
+
+        // PDFをダウンロードまたは表示
         return $pdf->download('hello.pdf');
     }
+
+
+
+        // public function generatePDF($recipeId)
+        // {
+        //     // レシピを取得
+        //     $recipe = Recipe::find($recipeId);
+        //     // PDFに表示するデータやビューを設定
+        //     $data = [
+        //         'recipe' => $recipe,
+        //     ];
+
+        //     // PDFを生成
+        //     $pdf = PDF::loadView('pdf.recipe', $data);
+
+        //     // 例: publicディレクトリ内のpdfディレクトリに保存する場合
+        //     $pdf->save(public_path('pdf/recipe.pdf'));
+
+        //     // PDFをダウンロードまたは表示
+        //     return $pdf->download('recipe.pdf');
+        // }
+
 }
 
 

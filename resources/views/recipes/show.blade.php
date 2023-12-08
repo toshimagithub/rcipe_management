@@ -67,9 +67,9 @@
                             <span>{{ $step->order }}. {{ $step->description }}</span>
                         </div>
                     @endforeach
-                    {{-- <div>
+                    <div>
                         <a href="{{ route('pdf', [$recipe->id]) }}" class="btn btn-warning mt-1">pdfにする</a><br>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
     </div>

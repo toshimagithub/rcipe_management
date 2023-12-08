@@ -41,7 +41,7 @@ class RecipeController extends Controller
             'ingredients.*' => 'required|max:255',
             'descriptions.*' => 'required|max:255',
             'comment'=>'required|max:255',
-            'image'=>'image|mimes:jpeg,png,jpg,gif|max:1024',
+            'image'=>'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $user = auth()->user();

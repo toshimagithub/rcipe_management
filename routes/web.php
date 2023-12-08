@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('recipes')->group(function () {
+Route::prefix('recipes')->middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\RecipeController::class, 'index'])->name('recipe.index');
     Route::get('/create', [App\Http\Controllers\RecipeController::class, 'create'])->name('recipe.create');
     Route::post('/store', [App\Http\Controllers\RecipeController::class, 'store'])->name('recipe.store');
@@ -41,8 +41,8 @@ Route::prefix('recipes')->group(function () {
     Route::get('/recommend', [App\Http\Controllers\RecipeController::class, 'recommend'])->name('recipe.recommend');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+Route::prefix('admin')->middleware(['admin'])->group(function () {
+    Route::get('/index', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     Route::patch('/recommend/{recipe}', [App\Http\Controllers\AdminController::class, 'recommend'])->name('admin.recommend');
     Route::patch('/unRecommend/{recipe}', [App\Http\Controllers\AdminController::class, 'unRecommend'])->name('admin.unRecommend');
     Route::get('/management', [App\Http\Controllers\AdminController::class, 'management'])->name('admin.management');

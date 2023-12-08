@@ -26,7 +26,9 @@
                 @foreach ($recipes as $index => $recipe)
                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                     <div class="row">
-                        <img class="rounded d-block mx-auto" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 400px; object-fit: cover;" alt="Recipe Image">
+                        <a href="{{ route('recipe.show', [$recipe->id]) }}">
+                        <img class="rounded hover-zoom d-block mx-auto" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 400px; object-fit: cover;" alt="Recipe Image">
+                        </a>
                     </div>
                     <div class="row text-center">
                         <strong>{{ $recipe->name }}</strong>
