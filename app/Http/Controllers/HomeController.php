@@ -32,16 +32,7 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        // ログインユーザーが投稿したレシピを取得
-        $recipes = Recipe::where('おすすめ', true)
-        ->orderBy('created_at', 'desc')
-        ->paginate(6);
-
-        foreach($recipes as $recipe) {
-        $recipe->averageStar = $recipe->recipesreview->avg('star');
-        }
-
-        // dd($recipes);
+        $recipes = Recipe::orderBy('created_at', 'desc')->select('image','name')->get();
 
         return view('home', compact('recipes'));
     }

@@ -23,28 +23,20 @@
                         <div class="d-flex align-items-center ">
                             <div class="stars">
                                 @for ($i = 1; $i <= 5; $i++)
-                                    @if ($i <= $recipesReview)
-                                        <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                                    @else
-                                        @if ($i - 0.5 <= $recipesReview)
-                                            <span class="bi bi-star-half" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                                        @else
-                                            <span class="bi bi-star" data-rating="{{ $i }}" style="color: #c0c0c0;"></span>
-                                        @endif
-                                    @endif
+                                    <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
                                 @endfor
                             </div>
                             <div class="ms-3 rating-button-container">
-                                <input type="hidden" id="selected-rating" name="selected-star" value="{{ $recipesReview }}">
+                                <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
                                 <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
                             </div>
                         </div>
                     </form>
-                    
                     <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2">評価しました！</div>
                 </div>
             </div>
         </div>
+    
 
             <div class="row">
                 <!-- レシピ名と画像 -->

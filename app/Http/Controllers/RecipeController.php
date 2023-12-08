@@ -85,7 +85,9 @@ public function show(Recipe $recipe)
 {
     $ingredients = $recipe->ingredients;
     $steps = $recipe->steps;
-    $recipesReview = $recipe->averageStar(); // 平均評価を取得
+    $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
+    ->where('user_id', auth()->user()->id)
+    ->first(); // レビュー情報を取得 １件だけ返ってくる。
     return view('recipes.show',compact('recipe','ingredients','steps', 'recipesReview'));
 }
 
@@ -279,7 +281,6 @@ public function review(Request $request, Recipe $recipe)
             ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
             ->paginate(6);
 
-
     foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
         }
@@ -383,6 +384,20 @@ public function review(Request $request, Recipe $recipe)
 
                 return view('recipes.search', compact('recipes', 'keyword'));
             }
+
+            public function recommend(Recipe $recipe)
+            {
+                $user = auth()->user();
+                // ログインユーザーが投稿したレシピを取得
+                $recipes = Recipe::where('おすすめ', true)
+                ->orderBy('created_at', 'desc')
+                ->paginate(6);
+                foreach($recipes as $recipe) {
+                $recipe->averageStar = $recipe->recipesreview->avg('star');
+                }
+                return view('recipes.recommend', compact('recipes'));
+            }
+
 
 
 

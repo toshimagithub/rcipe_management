@@ -4,12 +4,10 @@
 
 @section('content_header')
 <div class="row">
-    <div class="col-md-4 text-left">
+    <div class="col-md-6 text-center">
         <h1>今日のおすすめ</h1>
     </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
+    <div class="col-md-6 text-right">
         @if(Auth::check() && Auth::user()->role === "管理者")
         <a class="btn btn-success hover-zoom" href="{{ route('admin.index') }}">管理者ピックアップ</a>
         <a class="btn btn-success hover-zoom" href="{{ route('admin.management') }}">管理者権限付与</a>
@@ -21,81 +19,26 @@
 @stop
 
 @section('content')
-<div class="row text-center">
-    @foreach ($recipes as $recipe)
-        <div class="col-md-4">
-            <a href="{{ route('recipe.show', [$recipe->id]) }}">
-                @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
-                    <div class="ribbon-wrapper ribbon-lg">
-                        <div class="ribbon bg-warning">
-                            NEW
-                        </div>
+<div class="row">
+    <div class="col-md-6 h-50 d-flex justify-content-center">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($recipes as $index => $recipe)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    <div class="row">
+                        <img class="rounded d-block mx-auto" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 400px; object-fit: cover;" alt="Recipe Image">
                     </div>
-                @endif
-                <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
-                <br>
-            </a>
-            <div class="row" >
-                <div class="col-md-4" style="height: 25px;">
-                    @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $recipe->averageStar)
-                            <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                        @else
-                            @if ($i - 0.5 <= $recipe->averageStar)
-                                <span class="bi bi-star-half" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                            @else
-                                <span class="bi bi-star" data-rating="{{ $i }}" style="color: #c0c0c0;"></span>
-                            @endif
-                        @endif
-                    @endfor
+                    <div class="row text-center">
+                        <strong>{{ $recipe->name }}</strong>
+                    </div>
                 </div>
-                <div class="col-md-4" style="height: 25px;">
-                    <strong>{{ $recipe->name }}</strong>
-                </div>
-                <div class="col-md-4 texe-center" style="height: 25px;">
-                    <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
-                </div>
+                @endforeach
             </div>
-            @if(Auth::check() && Auth::user()->role === "管理者")
-            <div class="row py-2">
-                <div class="col-md-4">
-                    @if ($recipe->おすすめ == 1)
-                    <p style="color: green;">管理人のおすすめ</p>
-                    @else
-                    <p style="color: red;">おすすめになっていません</p>
-                    @endif
-                </div>
-                <div class="col-md-4">
-
-                </div>
-                <div class="col-md-4">
-                <form action="{{ route('admin.unRecommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
-                    @method('PATCH')
-                    @csrf
-                <button type="submit" class="btn btn-danger">おすすめを解除</button>
-                </form>
-                </div>
-            </div>
-            @endif
         </div>
-    @endforeach
-</div>
-<footer class="small">
-    <div class="mt-4">
-        {{ $recipes->links('pagination::bootstrap-5') }}
     </div>
-</footer>
-
-
-
-
-
-
-
-
-
-
-
+    <div class="col-md-6">
+    </div>
+</div>
 
 @stop
 
@@ -109,6 +52,10 @@
 @stop
 
 @section('js')
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-2/js/6-1-2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 @stop

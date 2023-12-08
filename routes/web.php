@@ -38,6 +38,7 @@ Route::prefix('recipes')->group(function () {
     Route::get('/oldest/index', [App\Http\Controllers\RecipeController::class, 'oldestIndex'])->name('recipe.oldestIndex');
     Route::get('/ranking', [App\Http\Controllers\RecipeController::class, 'ranking'])->name('recipe.ranking');
     Route::get('/search', [App\Http\Controllers\RecipeController::class, 'search'])->name('recipe.search');
+    Route::get('/recommend', [App\Http\Controllers\RecipeController::class, 'recommend'])->name('recipe.recommend');
 });
 
 Route::prefix('admin')->group(function () {

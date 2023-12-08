@@ -1,4 +1,20 @@
+@charset "utf-8";
+
 .hover-zoom:hover {
   transform: scale(1.13);
   transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
+}
+
+.gallery-lists {
+  justify-content: space-between;
+  width: 1000px;
+  margin: 0 auto;
+}
+ 
+.gallery-list {
+  width: 300px;
+}
+ 
+.gallery-list img {
+  width: 100%;
 }

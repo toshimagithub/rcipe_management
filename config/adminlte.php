@@ -323,6 +323,11 @@ return [
             'url'  => 'recipes/myrecipes',
             'icon' => 'fas fa-fw fa-utensils',
         ],
+        [
+            'text' => 'オススメレシピ',
+            'route' => 'recipe.recommend',
+            'icon' => 'fas fa-fw fa-utensils',
+        ],
 
 
         // AdminLTEデフォルト
