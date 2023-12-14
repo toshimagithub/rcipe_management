@@ -39,7 +39,6 @@ Route::prefix('recipes')->middleware(['auth'])->group(function () {
     Route::get('/ranking', [App\Http\Controllers\RecipeController::class, 'ranking'])->name('recipe.ranking');
     Route::get('/search', [App\Http\Controllers\RecipeController::class, 'search'])->name('recipe.search');
     Route::get('/recommend', [App\Http\Controllers\RecipeController::class, 'recommend'])->name('recipe.recommend');
-    Route::get('/map', [App\Http\Controllers\RecipeController::class, 'map'])->name('recipe.map');
 });
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {

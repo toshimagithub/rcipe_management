@@ -239,7 +239,6 @@ public function review(Request $request, Recipe $recipe)
             return view('recipes.rating', compact('recipes','star'));
         }
 
-
         public function sortRating(Request $request)
         {
             // 認証済みユーザーを取得
@@ -256,20 +255,6 @@ public function review(Request $request, Recipe $recipe)
             // レシピ一覧ページにリダイレクト
             return view('recipes.rating', compact('recipes', 'star'));
         }
-
-
-    //     public function bestIndex(Request $request,Recipe $recipe)
-    //     {
-    //         $user = auth()->user();
-
-    //           // ユーザーに関連するレシピを取得し、平均評価で並べ替えてページネーション
-    //         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
-
-    // foreach($recipes as $recipe) {
-    //     $recipe->averageStar = $recipe->recipesreview->avg('star');
-    //     }
-    //         return view('recipes.index', compact('recipes'));
-    //     }
 
         public function bestIndex(Request $request)
         {
@@ -400,13 +385,6 @@ public function review(Request $request, Recipe $recipe)
                 return view('recipes.recommend', compact('recipes'));
             }
 
-
-
-
-            public function map()
-            {
-                return view('recipes.map');
-            }
 
 
 
