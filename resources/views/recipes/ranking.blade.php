@@ -18,13 +18,6 @@
                     <strong> {{ $recipe->rank }}位 </strong>
                 </div>
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
-                    @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
-                        <div class="ribbon-wrapper ribbon-lg">
-                            <div class="ribbon bg-warning">
-                                NEW
-                            </div>
-                        </div>
-                    @endif
                     <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
                     <br>
                 </a>
@@ -42,13 +35,12 @@
                             @endif
                         @endfor
                         {{ number_format($recipe->averageStar(), 1) }}
-                      </div>
+                    </div>
                     <div class="col-md-4" style="height: 25px;">
                         <strong>{{ $recipe->name }}</strong>
                     </div>
                     <div class="col-md-4 texe-center" style="height: 25px;">
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
-                        
                     </div>
                 </div>
             </div>

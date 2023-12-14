@@ -4,7 +4,15 @@
     <h1 class="text-center">マイレシピ</h1>
 @stop
 
+
 @section('content')
+<div class="row">
+@if(session('message'))
+    <div class="p-3 mb-2 bg-warning text-dark text-center">
+    {{ session('message') }}
+    </div>
+@endif
+</div>
     <div class="row text-center">
         @foreach ($recipes as $recipe)
             <div class="col-md-4">

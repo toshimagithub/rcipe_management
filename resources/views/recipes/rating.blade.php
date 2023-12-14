@@ -1,6 +1,5 @@
 @extends('adminlte::page')
 
-
 @section('content_header')
 <div class="row">
     <div class="col-md-4">
@@ -12,11 +11,10 @@
                 @endfor
                 <div class="ms-3 rating-button-container">
                     <input type="hidden" id="selected-rating" name="star" value="{{ old('star', $star) }}">
-                    <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm me-3">実行する</button>
+                    <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm me-3">星で絞り込む</button>
                 </div>
             </div>
-        </form>
-        </form>
+    </form>
     </div>
     <div class="col-md-4 text-center">
         <h1 >マイレビュー</h1>

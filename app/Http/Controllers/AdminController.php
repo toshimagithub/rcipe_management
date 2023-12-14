@@ -49,7 +49,6 @@ class AdminController extends Controller
     return view('admin.grant', compact('users'));
 }
 
-
     public function grant(User $user)
     {
         $user->update(['role' => "管理者"]);
@@ -62,6 +61,5 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'ユーザーに戻しました。');
     }
-
 
 }

@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .hover-zoom:hover {
-  transform: scale(1.13);
+  transform: scale(1.05);
   transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
 }
 
@@ -10,11 +10,16 @@
   width: 1000px;
   margin: 0 auto;
 }
- 
+
 .gallery-list {
   width: 300px;
 }
- 
+
 .gallery-list img {
   width: 100%;
+}
+
+#map{
+  width:900px;
+  height:600px;
 }

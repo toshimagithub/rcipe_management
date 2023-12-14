@@ -11,6 +11,8 @@ use App\Models\Recipe;
 use App\Models\User;
 use App\Models\RecipesReview;
 
+
+
 class RecipeController extends Controller
 {
     public function index(Recipe $recipe)
@@ -34,14 +36,14 @@ class RecipeController extends Controller
         return view('recipes.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request,)
     {
         $this->validate($request,[
             'name'=>'required|max:255',
             'ingredients.*' => 'required|max:255',
             'descriptions.*' => 'required|max:255',
             'comment'=>'required|max:255',
-            'image'=>'image|mimes:jpeg,png,jpg,gif',
+            'image'=>'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $user = auth()->user();
@@ -147,15 +149,15 @@ public function review(Request $request, Recipe $recipe)
         public function update(Request $request, Recipe $recipe)
         {
 
-            // バリデーションルールの修正
-            $this->validate($request, [
-                'name' => 'required|max:255',
-                'ingredients' => 'required|array',
-                'descriptions' => 'required|array', // フォーム内の名前を修正
-                'comment' => 'required|max:255',
-                'image' => 'image|mimes:jpeg,png,jpg,gif|max:1024', // 必須ではなくなりました
+                $this->validate($request,[
+                'name'=>'required|max:255',
+                'ingredients.*' => 'required|max:255',
+                'descriptions.*' => 'required|max:255',
+                'comment'=>'required|max:255',
+                'image'=>'image|mimes:jpeg,png,jpg,gif',
             ]);
-        
+
+
             // 画像の処理を修正
             if ($request->hasFile('image')) {
                 $original = $request->file('image')->getClientOriginalName();
@@ -165,14 +167,14 @@ public function review(Request $request, Recipe $recipe)
                 // 画像を変更しない場合は元の画像のファイル名を設定
                 $name = $recipe->image;
             }
-        
+
             // レシピ情報の更新
             $recipe->name = $request->name;
             $recipe->comment = $request->comment;
             $recipe->image = $name; // 画像の名前を保存
-        
+
             $recipe->save();
-        
+
             // 材料の更新
             $ingredients = $request->input('ingredients');
             if (is_array($ingredients)) {
@@ -206,10 +208,10 @@ public function review(Request $request, Recipe $recipe)
                     }
                 }
             }
-        
+
             return redirect()->route('recipe.show', $recipe->id);
         }
-        
+
 
 
 
@@ -220,7 +222,7 @@ public function review(Request $request, Recipe $recipe)
 
             $recipe->delete();
 
-            return redirect()->route('recipe.index');
+            return redirect()->route('recipe.myrecipes')->with('message', '削除しました。');
 
         }
 
@@ -396,6 +398,14 @@ public function review(Request $request, Recipe $recipe)
                 $recipe->averageStar = $recipe->recipesreview->avg('star');
                 }
                 return view('recipes.recommend', compact('recipes'));
+            }
+
+
+
+
+            public function map()
+            {
+                return view('recipes.map');
             }
 
 
