@@ -15,7 +15,6 @@
     </div>
 </div>
 
-
 @stop
 
 @section('content')

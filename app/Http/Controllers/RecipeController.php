@@ -15,8 +15,8 @@ use App\Models\RecipesReview;
 
 class RecipeController extends Controller
 {
-    public function index(Recipe $recipe)
-    {
+                                public function index(Recipe $recipe)
+                                {
         $user = auth()->user();
 
         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
@@ -225,7 +225,6 @@ public function review(Request $request, Recipe $recipe)
             return redirect()->route('recipe.myrecipes')->with('message', '削除しました。');
 
         }
-
         public function rating(Recipe $recipe)
         {
             $user = auth()->user();

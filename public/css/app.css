@@ -23,3 +23,15 @@
   width:900px;
   height:600px;
 }
+
+[class*=sidebar-dark] .form-control-sidebar {
+  background-color: #f8f9fa;
+  border: 1px solid #000;
+  color: #000;
+}
+
+[class*=sidebar-dark] .btn-sidebar, [class*=sidebar-dark] .form-control-sidebar{
+  background-color: #f8f9fa;
+  border: 1px solid #000;
+  color: #000;
+}
