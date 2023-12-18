@@ -1,37 +1,38 @@
 @charset "utf-8";
 
 .hover-zoom:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
+    transform: scale(1.05);
+    transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
 }
 
 .gallery-lists {
-  justify-content: space-between;
-  width: 1000px;
-  margin: 0 auto;
+    justify-content: space-between;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 .gallery-list {
-  width: 300px;
+    width: 300px;
 }
 
 .gallery-list img {
-  width: 100%;
+    width: 100%;
 }
 
-#map{
-  width:900px;
-  height:600px;
+#map {
+    width: 900px;
+    height: 600px;
 }
 
-[class*=sidebar-dark] .form-control-sidebar {
-  background-color: #f8f9fa;
-  border: 1px solid #000;
-  color: #000;
+[class*="sidebar-dark"] .form-control-sidebar {
+    background-color: #f8f9fa;
+    border: 1px solid #000;
+    color: #000;
 }
 
-[class*=sidebar-dark] .btn-sidebar, [class*=sidebar-dark] .form-control-sidebar{
-  background-color: #f8f9fa;
-  border: 1px solid #000;
-  color: #000;
+[class*="sidebar-dark"] .btn-sidebar,
+[class*="sidebar-dark"] .form-control-sidebar {
+    background-color: #f8f9fa;
+    border: 1px solid #000;
+    color: #000;
 }

@@ -15,8 +15,8 @@ use App\Models\RecipesReview;
 
 class RecipeController extends Controller
 {
-                                public function index(Recipe $recipe)
-                                {
+    public function index(Recipe $recipe)
+    {
         $user = auth()->user();
 
         $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
@@ -80,7 +80,7 @@ class RecipeController extends Controller
         $order++;
     }
 
-    return redirect()->route('recipe.index');
+    return redirect()->route('recipe.index')->with('message', 'レシピを投稿しました。');
 }
 
 public function show(Recipe $recipe)
@@ -180,7 +180,6 @@ public function review(Request $request, Recipe $recipe)
             if (is_array($ingredients)) {
                 // 既存の材料を削除
                 $recipe->ingredients()->delete();
-        
                 foreach ($ingredients as $ingredient) {
                     if (!empty($ingredient)) {
                         // 材料をレシピに紐づけて保存
@@ -188,15 +187,17 @@ public function review(Request $request, Recipe $recipe)
                     }
                 }
             }
-        
+
             // 作り方の更新
             $descriptions = $request->input('descriptions');
-            $order = 1; // 最初の順番
-        
+
             if (is_array($descriptions)) {
                 // 既存のステップを削除
                 $recipe->steps()->delete();
-        
+
+                $order = 1; 
+
+
                 foreach ($descriptions as $description) {
                     if (!empty($description)) {
                         $recipe->steps()->create([
@@ -209,11 +210,8 @@ public function review(Request $request, Recipe $recipe)
                 }
             }
 
-            return redirect()->route('recipe.show', $recipe->id);
+            return redirect()->route('recipe.show', $recipe->id)->with('message', 'レシピを更新しました。');
         }
-
-
-
 
             public function destroy(Recipe $recipe)
         {

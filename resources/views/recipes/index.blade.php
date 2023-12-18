@@ -2,6 +2,11 @@
 
 @section('content_header')
     <div class="row">
+        @if(session('message'))
+            <div class="p-3 mb-2 bg-warning text-dark text-center">
+            {{ session('message') }}
+            </div>
+        @endif
         <div class="col-md-4 d-flex align-items-center">
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

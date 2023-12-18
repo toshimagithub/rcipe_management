@@ -1,16 +1,13 @@
-
-
-
-
-
 @extends('adminlte::page')
 
 @section('content_header')
-    <style>
-        .mb {
-            margin-bottom: 50px !important;
-        }
-    </style>
+<div class="row">
+    @if(session('message'))
+        <div class="p-3 mb-2 bg-warning text-dark text-center w-100">
+        {{ session('message') }}
+        </div>
+    @endif
+</div>
 @stop
 
 @section('content')
@@ -36,7 +33,6 @@
                 </div>
             </div>
         </div>
-    
 
             <div class="row">
                 <!-- レシピ名と画像 -->
@@ -100,16 +96,16 @@
             // 評価ボタンを無効化（再クリックを防ぐ）
             ratingButton.disabled = true;
 
-            // フォームをサブミット
-            document.getElementById('rating-form').submit();
-
             // 評価しましたのアラートを表示
             ratingSuccessMessage.style.display = 'block';
 
             // 3秒後にアラートを非表示にする
             setTimeout(() => {
                 ratingSuccessMessage.style.display = 'none';
+                        // フォームをサブミット
+            document.getElementById('rating-form').submit();
             }, 3000);
+
         });
 
         // 評価値に合わせて星を更新する関数

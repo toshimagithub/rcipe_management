@@ -43,7 +43,7 @@
                 </div>
             </div>
             @if(Auth::check() && Auth::user()->role === "管理者")
-            <div class="row py-2">
+            <div class="row mt-5 py-2">
                 <div class="col-md-4">
                     @if ($recipe->おすすめ == 1)
                     <p style="color: green;">管理人のおすすめ</p>
