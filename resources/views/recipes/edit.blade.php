@@ -37,7 +37,7 @@
         @method('PATCH')
         <div class="row">
             <!-- レシピ名と画像 -->
-            <div class="card col-md-6 text-center border-0 shadow-none bg-transparent">
+            <div class="card col-sm-6 col-md-6   text-center border-0 shadow-none bg-transparent">
                 <div class="max-auto">
                     <input type="file" class="text-center" placeholder="写真" name="image">
                 </div>
@@ -45,8 +45,6 @@
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-
-
 
                 @if($recipe->image)
                     <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;" name="image">
@@ -56,12 +54,13 @@
                 </div>
                 <label>コメント</label>
 
-                <textarea class="w-auto h-50 py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
+                <textarea class="w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
                 @error('comment') is-invalid @enderror"
-                name="comment" cols="60" rows="3" style="resize: none; border-radius: 10px;">{{ old('comment', $recipe->comment) }}</textarea>
-                @error('comment')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                name="comment" cols="60" rows="3" style="resize: none; border-radius: 10px; height: 100px;">{{ old('comment', $recipe->comment) }}</textarea>
+@error('comment')
+    <div class="invalid-feedback">{{ $message }}</div>
+@enderror
+
 
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="mt-2 btn btn-warning" style="width:90px;">更新する</button>
@@ -70,7 +69,7 @@
             </div>
 
             <!-- 材料 -->
-            <div class="card col-md-6 border-0 shadow-none bg-transparent mt-5">
+            <div class="card col-sm-6 col-md-6 border-0 shadow-none bg-transparent ">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">材料</label>
                     <br>
@@ -162,19 +161,20 @@
 
     // 評価ボタンをクリックしたときの処理
     ratingButton.addEventListener('click', () => {
-        // 評価ボタンを無効化（再クリックを防ぐ）
-        ratingButton.disabled = true;
+    // 評価ボタンを無効化（再クリックを防ぐ）
+    ratingButton.disabled = true;
 
-        // フォームをサブミット
-        document.getElementById('rating-form').submit();
+    // 評価しましたのアラートを表示
+    ratingSuccessMessage.style.display = 'block';
 
-        // 評価しましたのアラートを表示
-        ratingSuccessMessage.style.display = 'block';
 
-        // 3秒後にアラートを非表示にする
-        setTimeout(() => {
-            ratingSuccessMessage.style.display = 'none';
-        }, 3000);
+    // 3秒後にアラートを非表示にする
+    setTimeout(() => {
+        ratingSuccessMessage.style.display = 'none';
+                // フォームをサブミット
+    document.getElementById('rating-form').submit();
+    }, 1000);
+
     });
 
     // 評価値に合わせて星を更新する関数

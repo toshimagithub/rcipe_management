@@ -12,8 +12,10 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="mb-3 mx-auto">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
                 <div class="star-rating ">
                     <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
                         @csrf <!-- CSRFトークンを追加 -->
@@ -32,7 +34,10 @@
                     <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2">評価しました！</div>
                 </div>
             </div>
+            <div class="col-md-4">
+            </div>
         </div>
+
 
             <div class="row">
                 <!-- レシピ名と画像 -->
@@ -72,7 +77,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 @stop
 
 @section('js')
@@ -99,13 +109,15 @@
             // 評価しましたのアラートを表示
             ratingSuccessMessage.style.display = 'block';
 
+
             // 3秒後にアラートを非表示にする
             setTimeout(() => {
                 ratingSuccessMessage.style.display = 'none';
                         // フォームをサブミット
             document.getElementById('rating-form').submit();
-            }, 3000);
+            }, 1000);
 
+      
         });
 
         // 評価値に合わせて星を更新する関数

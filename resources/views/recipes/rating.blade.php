@@ -25,9 +25,9 @@
 
 @section('content')
 
-<div class="row text-center">
+<div class="row">
 @foreach ($recipes as $recipe)
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-4 recipe-container">
         <a href="{{ route('recipe.show', [$recipe->id]) }}">
             @if ($recipe->image &&($recipe->created_at->diffInDays(now()) < 1 ))
             <div class="ribbon-wrapper ribbon-lg">
@@ -37,23 +37,22 @@
             </div>
         @endif
                 <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
+                <p class="recipe-title">
+                    <strong>{{ $recipe->name }}</strong>
 
-                @for ($i = 1; $i <= 5; $i++)
+                    @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= $recipe->pivot->star)
                         <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
                     @else
                         <span class="bi bi-star" data-rating="{{ $i }}" style="color: #c0c0c0;"></span>
                     @endif
                 @endfor
-                <br>
+
+                </p>
+
         </a>
-                <div class="row">
-            <div class="col-md-4" >
-            </div>
-            <div class="col-md-4 " >
-                <strong>{{ $recipe->name }}</strong>
-            </div>
-            <div class="col-md-4 text-right">
+        <div class="row" style="height: 25px;">
+            <div class="col-md-12">
                 <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
             </div>
         </div>

@@ -7,17 +7,19 @@
 @stop
 
 @section('content')
-
     <div class="row">
-
             <div class="card card-primary">
                 <form action="{{ route('recipe.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
-                        <input type="file" name="image" class="mb-3">
+                        <input type="file" name="image" class="mb-1">
+                        @if ($errors->has('image'))
+                        <div class="error">{{ $errors->first('image') }}</div>
+                        @endif
+
                         <div class="form-group">
                             <label for="name">料理名</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror @if(old('name') && !$errors->has('name')) is-valid @endif" name="name" placeholder="名前" value="{{ old('name') }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror @if(old('name') && !$errors->has('name')) is-valid @endif" name="name" placeholder="料理名" value="{{ old('name') }}">
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -29,8 +31,8 @@
                             <br>
                             <div class="ingredients-container">
                                 <div class="mb-2 ingredient-item">
-                                    <input type="text"class="form-control @error('ingredients.0') is-invalid @enderror {{ old('ingredients.0') && !$errors->has('ingredients.0') ? 'is-valid' : '' }}" 
-                                    name="ingredients[]"placeholder="材料" value="{{ old('ingredients.0') }}">
+                                    <input type="text"class="form-control @error('ingredients.0') is-invalid @enderror {{ old('ingredients.0') && !$errors->has('ingredients.0') ? 'is-valid' : '' }}"
+                                    name="ingredients[]"placeholder="材料を１つずつ入力してください" value="{{ old('ingredients.0') }}">
                                     @error('ingredients.0')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -60,7 +62,7 @@
                             <br>
                             <div class="steps-container">
                                 <div class="mb-2 step-item">
-                                    <input type="text" class="form-control @error('descriptions.0') is-invalid @enderror {{ old('descriptions.0') && !$errors->has('descriptions.0') ? 'is-valid' : '' }}" name="descriptions[]" placeholder="作り方 1." value="{{ old('descriptions.0') }}">
+                                    <input type="text" class="form-control @error('descriptions.0') is-invalid @enderror {{ old('descriptions.0') && !$errors->has('descriptions.0') ? 'is-valid' : '' }}" name="descriptions[]" placeholder="作り方の工程を１つずつ入力してください" value="{{ old('descriptions.0') }}">
                                     @error('descriptions.0')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -86,7 +88,7 @@
                         </div>
                         <div class="form-group">
                             <label for="detail">コメント</label>
-                            <input type="text" class="form-control @error('comment') is-invalid @enderror @if(old('comment') && !$errors->has('comment')) is-valid @endif" " name="comment" placeholder="詳細説明" value="{{ old('comment') }}">
+                            <input type="text" class="form-control @error('comment') is-invalid @enderror @if(old('comment') && !$errors->has('comment')) is-valid @endif" " name="comment" placeholder="コメント" value="{{ old('comment') }}">
                             @error('comment')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -103,6 +105,8 @@
 
 @section('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 @stop
 
 @section('js')

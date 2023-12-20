@@ -292,7 +292,7 @@ return [
     'menu' => [
         [
             'type'       => 'sidebar-custom-search',
-            'text'       => 'search',
+            'text'       => '料理名や材料で検索',
             'url'        => 'recipes/search',
             'method'     => 'get',
             'input_name' => 'search',
@@ -309,8 +309,8 @@ return [
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
-            'text' => 'マイレビュー',
-            'url'  => 'recipes/rating',
+            'text'  => 'マイレビュー',
+            'url'   => 'recipes/rating',
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [

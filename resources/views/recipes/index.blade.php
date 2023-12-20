@@ -1,13 +1,15 @@
 @extends('adminlte::page')
 
 @section('content_header')
+<div class="container-md">
+
     <div class="row">
         @if(session('message'))
             <div class="p-3 mb-2 bg-warning text-dark text-center">
             {{ session('message') }}
             </div>
         @endif
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="col-md-4 col-sm-4 d-flex align-items-center">
             <div class="dropdown">
                 <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     並び替え
@@ -34,12 +36,15 @@
             <h1>レシピ一覧</h1>
         </div>
     </div>
+</div>
 @stop
 
 @section('content')
-    <div class="row text-center">
+<div class="container-md">
+
+    <div class="row">
         @foreach ($recipes as $recipe)
-            <div class="col-md-4">
+            <div class="col-sm-4 col-md-4 recipe-container">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                         <div class="ribbon-wrapper ribbon-lg">
@@ -49,14 +54,12 @@
                         </div>
                     @endif
                     <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
-                    <br>
-                </a>
-                <div class="row" >
-                    <div class="col-md-4" style="height: 25px;">
+                    <p class="recipe-title"> 
+                        <strong>{{ $recipe->name }}</strong>
                         @for ($i = 1; $i <= 5; $i++)
-                            @if ($i <= $recipe->averageStar)
-                                <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                            @else
+                        @if ($i <= $recipe->averageStar)
+                            <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
+                        @else
                                 @if ($i - 0.5 <= $recipe->averageStar)
                                     <span class="bi bi-star-half" data-rating="{{ $i }}" style="color: #FFD700;"></span>
                                 @else
@@ -64,11 +67,10 @@
                                 @endif
                             @endif
                         @endfor
-                    </div>
-                    <div class="col-md-4" style="height: 25px;">
-                        <strong>{{ $recipe->name }}</strong>
-                    </div>
-                    <div class="col-md-4 texe-center" style="height: 25px;">
+                    </p>
+                </a>
+                <div class="row" style="height: 25px;">
+                    <div class="col-md-12">
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
@@ -80,6 +82,9 @@
             {{ $recipes->links('pagination::bootstrap-5') }}
         </div>
     </footer>
+
+
+</div>
 @stop
 
 @section('css')

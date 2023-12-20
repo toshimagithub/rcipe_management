@@ -7,10 +7,10 @@
 @stop
 
 @section('content')
-<div class="row text-center">
+<div class="row">
     @foreach ($recipes as $recipe)
-        <div class="col-md-4">
-            <a href="{{ route('recipe.show', [$recipe->id]) }}">
+    <div class="col-md-4 col-sm-4 recipe-container">
+        <a href="{{ route('recipe.show', [$recipe->id]) }}">
                 @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                     <div class="ribbon-wrapper ribbon-lg">
                         <div class="ribbon bg-warning">
@@ -19,14 +19,12 @@
                     </div>
                 @endif
                 <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
-                <br>
-            </a>
-            <div class="row" >
-                <div class="col-md-4" style="height: 25px;">
+                <p class="recipe-title"> 
+                    <strong>{{ $recipe->name }}</strong>
                     @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $recipe->averageStar)
-                            <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                        @else
+                    @if ($i <= $recipe->averageStar)
+                        <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
+                    @else
                             @if ($i - 0.5 <= $recipe->averageStar)
                                 <span class="bi bi-star-half" data-rating="{{ $i }}" style="color: #FFD700;"></span>
                             @else
@@ -34,27 +32,23 @@
                             @endif
                         @endif
                     @endfor
-                </div>
-                <div class="col-md-4" style="height: 25px;">
-                    <strong>{{ $recipe->name }}</strong>
-                </div>
-                <div class="col-md-4 texe-center" style="height: 25px;">
+                </p>
+            </a>
+            <div class="row" style="height: 25px;">
+                <div class="col-md-12">
                     <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                 </div>
             </div>
             @if(Auth::check() && Auth::user()->role === "管理者")
-            <div class="row mt-5 py-2">
-                <div class="col-md-4">
+            <div class="row mt-2 py-2">
+                <div class="col-md-6 col-sm-6">
                     @if ($recipe->おすすめ == 1)
                     <p style="color: green;">管理人のおすすめ</p>
                     @else
                     <p style="color: red;">おすすめになっていません</p>
                     @endif
                 </div>
-                <div class="col-md-4">
-
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6 col-sm-6">
                 <form action="{{ route('admin.unRecommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
