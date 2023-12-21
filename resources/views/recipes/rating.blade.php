@@ -39,6 +39,7 @@
                 <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
                 <p class="recipe-title">
                     <strong>{{ $recipe->name }}</strong>
+                    <br>
                     @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= $recipe->pivot->star)
                         <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>

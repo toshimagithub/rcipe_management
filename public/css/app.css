@@ -1,5 +1,13 @@
 @charset "utf-8";
 
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid #fff;
+}
+
+[class*=sidebar-dark-] {
+  background-color: #734e30;
+}
+
 .hover-zoom:hover {
     transform: scale(1.05);
     transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
