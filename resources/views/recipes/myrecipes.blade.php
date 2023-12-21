@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'MyRecipes')
+
 @section('content_header')
     <h1 class="text-center">マイレシピ</h1>
 @stop

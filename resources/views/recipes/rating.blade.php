@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'MyReview')
+
 @section('content_header')
 <div class="row">
     <div class="col-md-4 col-sm-4">

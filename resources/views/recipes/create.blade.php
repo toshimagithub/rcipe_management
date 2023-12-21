@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'レシピ登録')
+@section('title', 'Register')
 
 @section('content_header')
     <h1>レシピ登録</h1>

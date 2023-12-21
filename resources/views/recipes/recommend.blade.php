@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Recommend')
 
 @section('content_header')
     <h1 class="text-center">オススメレシピ</h1>
