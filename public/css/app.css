@@ -5,7 +5,6 @@
     transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
 }
 
-
 [class*="sidebar-dark"] .form-control-sidebar {
     background-color: #f8f9fa;
     border: 1px solid #000;
@@ -19,34 +18,100 @@
     color: #000;
 }
 
-
-
 .error {
     font-size: 0.875em;
     color: var(--bs-form-invalid-color);
 }
 
 .recipe-container {
-  position: relative; /* 相対配置 */
+    position: relative; /* 相対配置 */
 }
 
 /* レシピのタイトル */
 .recipe-title {
-  position: absolute;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-  padding: 10px; /* テキストの周りに余白を追加 */
-  top: 0;
-  left: 14px;
-  border-radius: 20% / 30%;
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+    padding: 1px; /* テキストの周りに余白を追加 */
+    top: 0;
+    left: 14px;
+    border-radius: 20% / 30%;
 }
 
-.recipe-ranking {
-  position: absolute;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-  padding: 10px; /* テキストの周りに余白を追加 */
-  top: 28px;
-  left: 14px;
-  border-radius: 20% / 30%;
+.recipe-title-ranking {
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+    padding: 1px; /* テキストの周りに余白を追加 */
+    top: 28px;
+    left: 14px;
+    border-radius: 20% / 30%;
+}
+
+.content-header {
+    padding: 15px 0.5rem;
+}
+
+
+
+@media screen and (max-width: 1080px) {
+    .recipe-title {
+        position: absolute;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+        padding: 1px; /* テキストの周りに余白を追加 */
+        top: 0;
+        left: 14px;
+        border-radius: 20% / 30%;
+        font-size: 13px;
+    }
+    .recipe-title-ranking {
+        position: absolute;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+        padding: 1px; /* テキストの周りに余白を追加 */
+        top: 28px;
+        left: 14px;
+        border-radius: 20% / 30%;
+        font-size: 13px;
+    }
+
+    .sumaho-index {
+      width: 100%;
+      max-width: 100%;
+
+}
+
+@media screen and (max-width: 575px) {
+    .sumaho {
+        width: 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .sumaho-index {
+      width: 100%;
+      max-width: 100%;
+  }
+    .recipe-title {
+        position: absolute;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+        padding: 1px; /* テキストの周りに余白を追加 */
+        top: 0;
+        left: 14px;
+        border-radius: 20% / 30%;
+        font-size: 13px;
+    }
+
+    .recipe-title-ranking {
+        position: absolute;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
+        padding: 1px; /* テキストの周りに余白を追加 */
+        top: 28px;
+        left: 14px;
+        border-radius: 20% / 30%;
+        font-size: 13px;
+    }
 }

@@ -18,7 +18,7 @@ class AdminController extends Controller
 {
     public function index(Recipe $recipe)
     {
-        $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
+        $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(12);
         foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
         }

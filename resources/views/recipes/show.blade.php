@@ -16,22 +16,24 @@
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
-                <div class="star-rating ">
+                <div class="star-rating text-center">
                     <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
                         @csrf <!-- CSRFトークンを追加 -->
-                        <div class="d-flex align-items-center ">
-                            <div class="stars">
+                            <div class="center-block">
+                            <span class="stars">
                                 @for ($i = 1; $i <= 5; $i++)
                                     <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
                                 @endfor
-                            </div>
-                            <div class="ms-3 rating-button-container">
+                            </span>
+                            <span class="ms-3 rating-button-container text-center">
                                 <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
                                 <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
-                            </div>
+                            </span>
                         </div>
                     </form>
-                    <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2">評価しました！</div>
+                    <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
+                        評価しました！
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -41,7 +43,7 @@
 
             <div class="row">
                 <!-- レシピ名と画像 -->
-                <div class="card col-md-6 text-center border-0 shadow-none bg-transparent">
+                <div class="card  col-sm-6 col-md-6 text-center border-0 shadow-none bg-transparent">
                     <h4><b>{{ $recipe->name }}</b></h4>
                     @if($recipe->image)
                         <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;">
@@ -53,7 +55,7 @@
                     <textarea class="w-auto py-2 border border-gray-300 rounded-md font-semibold whitespace-pre-line" cols="60" rows="３" readonly style="resize: none; border-radius: 10px;">{{ $recipe->comment }}</textarea>
                 </div>
 
-                <div class="card col-md-6 border-0 shadow-none bg-transparent mt-5">
+                <div class="card col-sm-6 col-md-6 border-0 shadow-none bg-transparent mt-1">
                     <div class="mb-3">
                         <label>材料</label>
                     </div>
@@ -78,10 +80,10 @@
 
 @section('css')
 
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 @stop
 

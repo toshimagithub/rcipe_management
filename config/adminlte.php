@@ -292,7 +292,7 @@ return [
     'menu' => [
         [
             'type'       => 'sidebar-custom-search',
-            'text'       => '料理名や材料で検索',
+            'text'       => '料理名・食材名',
             'url'        => 'recipes/search',
             'method'     => 'get',
             'input_name' => 'search',

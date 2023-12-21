@@ -1,11 +1,12 @@
 @extends('adminlte::page')
 
 @section('content_header')
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-md-4 d-flex align-items-center">
             <div class="dropdown">
@@ -20,13 +21,13 @@
             </div>
             <div class="ms-3">
                 @if(request()->routeIs('recipe.bestIndex'))
-                <b>評価が高い順</b>
+                    <b>評価が高い順</b>
                 @endif
                 @if(request()->routeIs('recipe.worstIndex'))
-                <b>評価が低い順</b>
+                    <b>評価が低い順</b>
                 @endif
                 @if(request()->routeIs('recipe.oldestIndex'))
-                <b>投稿が古い順</b>
+                    <b>投稿が古い順</b>
                 @endif
             </div>
         </div>
@@ -39,24 +40,23 @@
 @section('content')
     <div class="row text-center">
         @foreach ($recipes as $recipe)
-            <div class="col-md-4">
+            <div class="sumaho col-sm-4 col-md-3 recipe-container">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
-                        <div class="ribbon-wrapper ribbon-lg">
-                            <div class="ribbon bg-warning">
-                                NEW
-                            </div>
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon bg-warning">
+                            new
                         </div>
+                    </div>
                     @endif
-                    <img class="rounded" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
-                    <br>
-                </a>
-                <div class="row mb-3" >
-                    <div class="col-md-4" style="height: 25px;">
+                    <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
+                    <p class="recipe-title">
+                        <strong>{{ $recipe->name }}</strong>
+                        <br>
                         @for ($i = 1; $i <= 5; $i++)
-                            @if ($i <= $recipe->averageStar)
-                                <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
-                            @else
+                        @if ($i <= $recipe->averageStar)
+                            <span class="bi bi-star-fill" data-rating="{{ $i }}" style="color: #FFD700;"></span>
+                        @else
                                 @if ($i - 0.5 <= $recipe->averageStar)
                                     <span class="bi bi-star-half" data-rating="{{ $i }}" style="color: #FFD700;"></span>
                                 @else
@@ -64,36 +64,35 @@
                                 @endif
                             @endif
                         @endfor
-                    </div>
-                    <div class="col-md-4" style="height: 25px;">
-                        <strong>{{ $recipe->name }}</strong>
-                    </div>
-                    <div class="col-md-4 texe-center" style="height: 25px;">
+                    </p>
+                </a>
+                <div class="row" >
+                    <div class="col-md-12">
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
-                <div class="row py-2">
-                  <div class="col-md-4">
-                    @if ($recipe->おすすめ == 1)
-                    <p style="color: green;">管理人のおすすめ</p>
-                    @else
-                    <p style="color: red;">おすすめになっていません</p>
-                    @endif
-                  </div>
-                  <div class="col-md-4">
-                    <form action="{{ route('admin.recommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
-                      @method('PATCH')
-                      @csrf
-                    <button type="submit" class="btn btn-success">おすすめにする</button>
-                  </form>
-                  </div>
-                  <div class="col-md-4">
-                    <form action="{{ route('admin.unRecommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
-                      @method('PATCH')
-                      @csrf
-                    <button type="submit" class="btn btn-danger">おすすめを解除</button>
-                  </form>
-                  </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @if ($recipe->おすすめ == 1)
+                            <p  style="color: green;">管理人のおすすめ</p>
+                        @else
+                            <p  style="color: red;">おすすめになっていません</p>
+                        @endif
+                    </div>
+                    <div class="col-md-12">
+                        <form action="{{ route('admin.recommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
+                            <button  type="submit" class="btn btn-success">おすすめにする</button>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <form action="{{ route('admin.unRecommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
+                            @method('PATCH')
+                            @csrf
+                            <button type="submit" class="btn btn-danger">おすすめを解除</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -109,6 +108,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

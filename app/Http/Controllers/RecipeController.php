@@ -19,7 +19,7 @@ class RecipeController extends Controller
     {
         $user = auth()->user();
 
-        $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(6);
+        $recipes = Recipe::with(['user'])->orderBy('created_at', 'desc')->paginate(12);
 
         foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
@@ -125,7 +125,7 @@ public function review(Request $request, Recipe $recipe)
         $recipes = Recipe::with(['user'])
         ->where('user_id', $user->id)
         ->orderBy('created_at', 'desc')
-        ->paginate(6);
+        ->paginate(12);
         foreach ($recipes as $recipe) {
             $recipe->averageStar = $recipe->recipesreview->avg('star');
         }
@@ -230,7 +230,7 @@ public function review(Request $request, Recipe $recipe)
 
             $recipes = $user->recipe()
                 ->orderBy('created_at', 'desc')
-                ->paginate(6);
+                ->paginate(12);
 
 
             return view('recipes.rating', compact('recipes','star'));
@@ -247,7 +247,7 @@ public function review(Request $request, Recipe $recipe)
             $recipes = $user->recipe()
                 ->wherePivot('star', $star) // 中間テーブルの star カラムで絞り込む
                 ->orderBy('created_at', 'desc')
-                ->paginate(6);
+                ->paginate(12);
 
             // レシピ一覧ページにリダイレクト
             return view('recipes.rating', compact('recipes', 'star'));
@@ -263,7 +263,7 @@ public function review(Request $request, Recipe $recipe)
             ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
             ->orderByRaw('AVG(recipes_reviews.star) DESC')
             ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
-            ->paginate(6);
+            ->paginate(12);
 
     foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
@@ -281,7 +281,7 @@ public function review(Request $request, Recipe $recipe)
             ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
             ->orderByRaw('AVG(recipes_reviews.star) asc')
             ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
-            ->paginate(6);
+            ->paginate(12);
 
 
     foreach($recipes as $recipe) {
@@ -295,7 +295,7 @@ public function review(Request $request, Recipe $recipe)
         {
             $user = auth()->user();
 
-        $recipes = Recipe::with(['user'])->orderBy('created_at', 'asc')->paginate(6);
+        $recipes = Recipe::with(['user'])->orderBy('created_at', 'asc')->paginate(12);
 
         foreach($recipes as $recipe) {
         $recipe->averageStar = $recipe->recipesreview->avg('star');
@@ -309,7 +309,7 @@ public function review(Request $request, Recipe $recipe)
 {
     $user = auth()->user();
 
-    $perPage = 6; // 1ページあたりのアイテム数
+    $perPage = 12; // 1ページあたりのアイテム数
 
     // ページネーションのページ番号を取得
     $page = $request->query('page', 1);
@@ -359,7 +359,7 @@ public function review(Request $request, Recipe $recipe)
                             });
                     })
                     ->orderBy('updated_at', 'desc')
-                    ->paginate(6);
+                    ->paginate(12);
 
 
                 foreach ($recipes as $recipe) {
@@ -375,7 +375,7 @@ public function review(Request $request, Recipe $recipe)
                 // ログインユーザーが投稿したレシピを取得
                 $recipes = Recipe::where('おすすめ', true)
                 ->orderBy('created_at', 'desc')
-                ->paginate(6);
+                ->paginate(12);
                 foreach($recipes as $recipe) {
                 $recipe->averageStar = $recipe->recipesreview->avg('star');
                 }
