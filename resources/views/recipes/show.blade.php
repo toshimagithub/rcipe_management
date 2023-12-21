@@ -1,5 +1,7 @@
 @extends('adminlte::page')
 
+@section('title', 'Recipe')
+
 @section('content_header')
 <div class="row">
     @if(session('message'))
