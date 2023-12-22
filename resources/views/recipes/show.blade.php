@@ -54,7 +54,7 @@
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                     <label>コメント</label>
-                    <textarea class="w-auto py-2 border border-gray-300 rounded-md font-semibold whitespace-pre-line" cols="60" rows="6" readonly style="resize: none; border-radius: 10px; height: 150px;">{{ $recipe->comment }}</textarea>
+                    <textarea class="takasa w-auto py-2 border border-gray-300 rounded-md font-semibold whitespace-pre-line" cols="60" rows="6" readonly style="resize: none; border-radius: 10px; height: 150px;">{{ $recipe->comment }}</textarea>
                 </div>
 
                 <div class="card col-sm-6 col-md-6 border-0 shadow-none bg-transparent mt-1">
