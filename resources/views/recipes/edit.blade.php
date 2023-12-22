@@ -58,7 +58,8 @@
 
                 <textarea class="w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
                 @error('comment') is-invalid @enderror"
-                name="comment" cols="60" style="resize: none; border-radius: 10px; ">{{ old('comment', $recipe->comment) }}</textarea>
+                name="comment" cols="60" style="resize: none; border-radius: 10px; height: auto;">
+                {{ old('comment', $recipe->comment) }}</textarea>
                 @error('comment')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
