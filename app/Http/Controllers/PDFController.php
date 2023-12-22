@@ -40,27 +40,6 @@ class PDFController extends Controller
         return $pdf->download('hello.pdf');
     }
 
-
-
-        // public function generatePDF($recipeId)
-        // {
-        //     // レシピを取得
-        //     $recipe = Recipe::find($recipeId);
-        //     // PDFに表示するデータやビューを設定
-        //     $data = [
-        //         'recipe' => $recipe,
-        //     ];
-
-        //     // PDFを生成
-        //     $pdf = PDF::loadView('pdf.recipe', $data);
-
-        //     // 例: publicディレクトリ内のpdfディレクトリに保存する場合
-        //     $pdf->save(public_path('pdf/recipe.pdf'));
-
-        //     // PDFをダウンロードまたは表示
-        //     return $pdf->download('recipe.pdf');
-        // }
-
 }
 
 

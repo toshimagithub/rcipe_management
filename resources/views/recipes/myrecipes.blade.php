@@ -17,7 +17,7 @@
 </div>
     <div class="row">
         @foreach ($recipes as $recipe)
-        <div class="sumaho col-sm-4 col-md-3 recipe-container">
+            <div class="sumaho col-sm-4 col-md-3 recipe-container">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image &&($recipe->created_at->diffInDays(now()) < 1 ))
                             <div class="ribbon-wrapper">

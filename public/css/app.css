@@ -1,11 +1,11 @@
 @charset "utf-8";
 
-[class*=sidebar-dark] .brand-link {
+[class*="sidebar-dark"] .brand-link {
     border-bottom: 1px solid #fff;
 }
 
-[class*=sidebar-dark-] {
-  background-color: #734e30;
+[class*="sidebar-dark-"] {
+    background-color: #734e30;
 }
 
 .hover-zoom:hover {
@@ -60,8 +60,6 @@
     padding: 15px 0.5rem;
 }
 
-
-
 @media screen and (max-width: 1080px) {
     .recipe-title {
         position: absolute;
@@ -85,9 +83,9 @@
     }
 
     .sumaho-index {
-      width: 100%;
-      max-width: 100%;
-
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -98,9 +96,9 @@
     }
 
     .sumaho-index {
-      width: 100%;
-      max-width: 100%;
-  }
+        width: 100%;
+        max-width: 100%;
+    }
     .recipe-title {
         position: absolute;
         color: white;
@@ -122,4 +120,10 @@
         border-radius: 20% / 30%;
         font-size: 13px;
     }
+
+    .hover-zoom:hover {
+        transform: scale(1.15);
+        transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
+    }
+
 }
