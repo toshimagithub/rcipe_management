@@ -24,10 +24,5 @@ class AppServiceProvider extends ServiceProvider
         if(\App::environment(['production'])) {
             \URL::forseScheme('https');
         }
-        // Validator::extend('unique_local_ingredients', function ($attribute, $value, $parameters, $validator) {
-        //     // ローカル上での材料が一意であることを確認するロジックをここに実装
-        //     // 例: ローカル上での材料がすでに存在しているかどうかをデータベースや配列などで確認する
-        //     return !in_array($value, $parameters);
-        // });
     }
 }
