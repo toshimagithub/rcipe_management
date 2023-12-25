@@ -68,7 +68,7 @@
                     @endforeach
                     <label>作り方</label>
                     @foreach($steps as $step)
-                        <div style="text-decoration: underline;">
+                        <div class="mb-1" style="text-decoration: underline;">
                             <span>{{ $step->order }}. {{ $step->description }}</span>
                         </div>
                     @endforeach
