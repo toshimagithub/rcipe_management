@@ -31,17 +31,33 @@
         src: url('{{ storage_path('fonts/ipag.ttf') }}') format('truetype');
     }
 
-        body {
-        font-family: 'ipag', 'Arial', sans-serif;
-        font-size: 12px; /* 適切なサイズに調整する */
-        word-wrap: break-word; /* 長い単語を折り返す */
-    }
+    body {
+    font-family: 'ipag', 'Arial', sans-serif;
+    font-size: 12px; /* 適切なサイズに調整する */
+    word-wrap: break-word; /* 長い単語を折り返す */
+    text-align: left; /* テキストを左寄せに設定する */
+}
 
-    html, body, textarea {
-        font-family: 'ipag', 'Arial', sans-serif;
-        font-size: 12px; /* 適切なサイズに調整する */
-        word-wrap: break-word; /* 長い単語を折り返す */
-    }
+html, body, textarea {
+    font-family: 'ipag', 'Arial', sans-serif;
+    font-size: 12px; /* 適切なサイズに調整する */
+    word-wrap: break-word; /* 長い単語を折り返す */
+    text-align: left; /* テキストを左寄せに設定する */
+}
+
+.recipe-info {
+    text-align: left; /* タイトルを左寄せに設定する */
+    margin-bottom: 20px;
+}
+
+.recipe-info img {
+    max-width: 100%;
+    height: auto;
+}
+
+.label {
+    text-decoration: underline;
+}
 </style>
 </head>
 <body>
