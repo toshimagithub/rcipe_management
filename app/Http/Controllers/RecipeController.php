@@ -50,10 +50,17 @@ class RecipeController extends Controller
 
         $name = null;
 
-        if($request->hasFile('image')){
-            $original = $request->file('image')->getClientOriginalName();
-            $name = date('Ymd_His'). '_' .$original;
-            $request->file('image')->move('storage/images',$name);
+        // if($request->hasFile('image')){
+        //     $original = $request->file('image')->getClientOriginalName();
+        //     $name = date('Ymd_His'). '_' .$original;
+        //     $request->file('image')->move('storage/images',$name);
+        // }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name ='data:image/png;base64,'.base64_encode(file_get_contents($image->path()));
+        } else {
+            $name = config("no_image_base64");
         }
 
         $recipes = $user->recipes()->create([
@@ -160,9 +167,8 @@ public function review(Request $request, Recipe $recipe)
 
             // 画像の処理を修正
             if ($request->hasFile('image')) {
-                $original = $request->file('image')->getClientOriginalName();
-                $name = date('Ymd_His') . '_' . $original;
-                $request->file('image')->move('storage/images', $name);
+                $image = $request->file('image');
+                $name ='data:image/png;base64,'.base64_encode(file_get_contents($image->path()));
             } else {
                 // 画像を変更しない場合は元の画像のファイル名を設定
                 $name = $recipe->image;
@@ -195,7 +201,7 @@ public function review(Request $request, Recipe $recipe)
                 // 既存のステップを削除
                 $recipe->steps()->delete();
 
-                $order = 1; 
+                $order = 1;
 
 
                 foreach ($descriptions as $description) {

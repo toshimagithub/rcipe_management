@@ -49,7 +49,7 @@
                 @enderror
 
                 @if($recipe->image)
-                    <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;" name="image">
+                    <img src="{{ $recipe->image }}" class="rounded" style="height:auto; width:auto;" name="image">
                 @endif
                 <div class="text-sm font-semibold flex flex-row-reverse mb-1">
                     <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>

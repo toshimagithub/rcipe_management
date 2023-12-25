@@ -38,7 +38,7 @@
                 </div>
             </div>
         @endif
-                <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
+                <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; height: 200px; object-fit: cover;" alt="Recipe Image">
 
                 @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= $recipe->pivot->star)

@@ -44,7 +44,7 @@
     <div class="recipe-info">
         <h1>{{ $recipe->name }}</h1>
     <div class="row">
-        <img src="{{ public_path('storage/images/' . basename($recipe->image)) }}" alt="" class="img-thumbnail" style="width: 22rem;">
+        <img src="{{ $recipe->image }}" alt="" class="img-thumbnail" style="width: 22rem;">
     </div>
         <label>材料</label>
         @foreach($ingredients as $ingredient)

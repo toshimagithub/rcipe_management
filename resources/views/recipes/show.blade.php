@@ -48,7 +48,7 @@
                 <div class="card  col-sm-6 col-md-6 text-center border-0 shadow-none bg-transparent">
                     <h4><b>{{ $recipe->name }}</b></h4>
                     @if($recipe->image)
-                        <img src="{{ asset('storage/images/'.$recipe->image) }}" class="rounded" style="height:auto; width:auto;">
+                        <img src="{{ $recipe->image }}" class="rounded" style="height:auto; width:auto;">
                     @endif
                     <div class="text-sm font-semibold flex flex-row-reverse mb-1">
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
