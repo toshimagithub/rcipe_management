@@ -140,7 +140,6 @@ public function review(Request $request, Recipe $recipe)
         return view('recipes.myrecipes', compact('recipes'));
         }
 
-
         public function edit( Recipe $recipe)
         {
             $ingredients = $recipe->ingredients;
