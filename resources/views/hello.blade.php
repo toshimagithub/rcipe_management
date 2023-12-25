@@ -31,12 +31,16 @@
         src: url('{{ storage_path('fonts/ipag.ttf') }}') format('truetype');
     }
 
-    body {
+        body {
         font-family: 'ipag', 'Arial', sans-serif;
+        font-size: 12px; /* 適切なサイズに調整する */
+        word-wrap: break-word; /* 長い単語を折り返す */
     }
 
     html, body, textarea {
         font-family: 'ipag', 'Arial', sans-serif;
+        font-size: 12px; /* 適切なサイズに調整する */
+        word-wrap: break-word; /* 長い単語を折り返す */
     }
 </style>
 </head>
