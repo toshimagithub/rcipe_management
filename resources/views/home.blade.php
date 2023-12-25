@@ -4,14 +4,16 @@
 
 @section('content_header')
 <div class="row">
-    <div class="col-md-6 text-center">
-        <h1>今日のおすすめ</h1>
-    </div>
-    <div class="col-md-6 text-right">
+    <div class="col-md-12 text-center">
         @if(Auth::check() && Auth::user()->role === "管理者")
         <a class="btn btn-success hover-zoom" href="{{ route('admin.index') }}">管理者ピックアップ</a>
         <a class="btn btn-success hover-zoom" href="{{ route('admin.management') }}">管理者権限付与</a>
         @endif
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 text-center">
+        <h1>今日のおすすめ</h1>
     </div>
 </div>
 
