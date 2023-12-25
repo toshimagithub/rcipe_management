@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     @endif
-                    <img class="rounded hover-zoom" src="{{ asset('storage/images/'.$recipe->image) }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
+                    <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
                     <p class="recipe-title">
                         <strong>{{ $recipe->name }}</strong>
                         <br>
