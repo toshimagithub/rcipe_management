@@ -56,11 +56,12 @@
                 </div>
                 <label>コメント</label>
 
-                <textarea class="takasa w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
+                <textarea class="height w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
                 @error('comment') is-invalid @enderror"
-                name="comment" cols="60" rows="5" style="resize: none; border-radius: 10px; height: 150px;">
-                {{ old('comment', $recipe->comment) }}
+                name="comment" style="resize: none; border-radius: 10px; height: 230px;">
+                    {{ old('comment', $recipe->comment) }}
                 </textarea>
+    
                 @error('comment')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
