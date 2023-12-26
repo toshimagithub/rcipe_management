@@ -93,7 +93,7 @@
                             <button type="submit" class="btn btn-danger">おすすめを解除</button>
                         </form>
                     </div>
-                    <div class="col-md-12 py-1">
+                    <div class="col-md-12">
                         <form action="{{ route('recipe.destroy', $recipe->id) }}" method="post">
                             @csrf
                             @method('DELETE')

@@ -304,7 +304,7 @@ return [
             'icon' => 'fas fa-fw fa-utensils',
         ],
         [
-            'text'  => 'レシピを書く',
+            'text'  => 'レシピ投稿',
             'url'   => 'recipes/create',
             'icon' => 'fas fa-fw fa-utensils',
         ],

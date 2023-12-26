@@ -3,7 +3,7 @@
 @section('title', 'Register')
 
 @section('content_header')
-    <h1>レシピ登録</h1>
+    <h1>レシピ投稿</h1>
 @stop
 
 @section('content')
