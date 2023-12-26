@@ -53,14 +53,14 @@
                             <button type="submit" class="btn btn-success" style="width:137px">管理者にする</button>
                         </form>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 py-1">
                         <form action="{{ route('admin.revoke', [$user->id]) }}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
                         </form>
                     </div>
-                    <div class="col-md-4 py-1">
+                    <div class="col-md-4 ">
                         <form action="{{ route('user.destroy', $user->id) }}" method="post">
                             @csrf
                             @method('DELETE')
