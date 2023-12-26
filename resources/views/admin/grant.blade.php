@@ -64,9 +64,11 @@
                         <form action="{{ route('user.destroy', $user->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-warning" onclick='return confirm("本当に削除しますか？")' style="width:137px">
-                                ユーザー削除
-                            </button>
+                            @if(Auth::user()->id !== $user->id)
+                                <button type="submit" class="btn btn-warning" onclick='return confirm("本当に削除しますか？")' style="width:137px">
+                                    ユーザー削除
+                                </button>
+                            @endif
                         </form>
                     </div>
                 </div>
