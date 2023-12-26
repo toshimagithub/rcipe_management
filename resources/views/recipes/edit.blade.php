@@ -133,7 +133,7 @@
 
         </div>
     </form>
-    <form id="delete-form" action="{{ route('recipe.destroy', $recipe->id) }}" method="post" class="d-none">
+    <form id="delete-form" action="{{ route('recipe.destroy', $recipe->id) }}" method="post" >
         @csrf
         @method('DELETE')
     </form>

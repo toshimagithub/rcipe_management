@@ -17,19 +17,19 @@
 @stop
 
 @section('content')
-<div class="row text-center justify-content-center">
-    @foreach ($users as $user)
+    <div class="row text-center justify-content-center">
+        @foreach ($users as $user)
             <div class="card w-75">
                 <div class="row text-center">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <strong>{{ $user->name }}</strong>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <strong>
                             @if($user->recipes()->count() === 0)
-                            まだレシピを投稿していません
+                                まだレシピを投稿していません
                             @else
                                 {{ $user->recipes()->count() }} レシピ
                             @endif
@@ -37,42 +37,49 @@
                     </div>
                 </div>
                 <div class="row py-3">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <strong>
-                        @if ($user->role == "管理者")
-                            <p style="color: green;">管理人</p>
-                        @else
-                            <p style="color: red;">ユーザー</p>
-                        @endif
+                            @if ($user->role == "管理者")
+                                <p style="color: green;">管理人</p>
+                            @else
+                                <p style="color: red;">ユーザー</p>
+                            @endif
                         </strong>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <form action="{{ route('admin.grant', [$user->id]) }}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <button type="submit" class="btn btn-success">管理者にする</button>
                         </form>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <form action="{{ route('admin.revoke', [$user->id]) }}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
                         </form>
                     </div>
+                    <div class="col-md-4 py-1">
+                        <form action="{{ route('user.destroy', $user->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-warning" onclick='return confirm("本当に削除しますか？")' style="width:137px">
+                                ユーザー削除
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-    @endforeach
-</div>
-
+        @endforeach
+    </div>
 @stop
 
 @section('css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

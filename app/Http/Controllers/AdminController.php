@@ -62,4 +62,17 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'ユーザーに戻しました。');
     }
 
+    public function destroy(Recipe $recipe)
+    {
+        $recipe->ingredients()->delete();
+        $recipe->delete();
+        return redirect()->route('admin.index')->with('success', '削除しました。');
+    }
+
+    public function UserDestroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('admin.management')->with('success', '削除しました。');
+    }
+
 }

@@ -48,6 +48,9 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/management', [App\Http\Controllers\AdminController::class, 'management'])->name('admin.management');
     Route::patch('/grant/{user}', [App\Http\Controllers\AdminController::class, 'grant'])->name('admin.grant');
     Route::patch('/revoke/{user}', [App\Http\Controllers\AdminController::class, 'revoke'])->name('admin.revoke');
+    Route::patch('/revoke/{user}', [App\Http\Controllers\AdminController::class, 'revoke'])->name('admin.revoke');
+    Route::delete('/destroy/{recipe}', [App\Http\Controllers\AdminController::class, 'destroy'])->name('recipe.destroy');
+    Route::delete('/UserDestroy/{user}', [App\Http\Controllers\AdminController::class, 'UserDestroy'])->name('user.destroy');
 });
 
 

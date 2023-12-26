@@ -86,11 +86,20 @@
                             <button  type="submit" class="btn btn-success">おすすめにする</button>
                         </form>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 py-1">
                         <form action="{{ route('admin.unRecommend', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
                             <button type="submit" class="btn btn-danger">おすすめを解除</button>
+                        </form>
+                    </div>
+                    <div class="col-md-12 py-1">
+                        <form action="{{ route('recipe.destroy', $recipe->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-warning" onclick='return confirm("本当に削除しますか？")' style="width:137px">
+                                レシピを削除
+                            </button>
                         </form>
                     </div>
                 </div>
