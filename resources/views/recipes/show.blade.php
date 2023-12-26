@@ -74,7 +74,9 @@
                     @endforeach
                     <div>
                         <a href="{{ route('pdf', [$recipe->id]) }}" class="btn btn-warning mt-1">pdfにする</a><br>
-                        <a href="https://line.me/R/msg/text/?レシピ詳細情報" target="_blank">
+
+
+                        <a href="https://line.me/R/msg/text/?{{ urlencode("レシピ詳細情報: " . route('recipe.show', $recipe->id)) }}" target="_blank">
                             LINEでシェアする
                         </a>
                         <i class="bi bi-line"></i>
