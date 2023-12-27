@@ -40,20 +40,30 @@
     position: absolute;
     color: white;
     background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-    padding: 1px; /* テキストの周りに余白を追加 */
+    padding: 4px; /* テキストの周りに余白を追加 */
     top: 0;
-    left: 14px;
-    border-radius: 20% / 30%;
+    left: 12px;
+    border-radius: 5% / 10%;
+    max-width: 85%;
+    max-height: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .recipe-title-ranking {
     position: absolute;
     color: white;
     background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-    padding: 1px; /* テキストの周りに余白を追加 */
+    padding: 4px; /* テキストの周りに余白を追加 */
     top: 28px;
-    left: 14px;
-    border-radius: 20% / 30%;
+    left: 12px;
+    border-radius: 5% / 10%;
+    max-width: 85%;
+    max-height: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .content-header {
@@ -70,20 +80,30 @@
         position: absolute;
         color: white;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-        padding: 1px; /* テキストの周りに余白を追加 */
+        padding: 4px; /* テキストの周りに余白を追加 */
         top: 0;
-        left: 14px;
-        border-radius: 20% / 30%;
+        left: 12px;
+        border-radius: 5% / 10%;
+        max-width: 85%;
+        max-height: 56px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-size: 13px;
     }
     .recipe-title-ranking {
         position: absolute;
         color: white;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-        padding: 1px; /* テキストの周りに余白を追加 */
+        padding: 4px; /* テキストの周りに余白を追加 */
         top: 28px;
-        left: 14px;
-        border-radius: 20% / 30%;
+        left: 12px;
+        border-radius: 5% / 10%;
+        max-width: 85%;
+        max-height: 56px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-size: 13px;
     }
 
@@ -108,22 +128,32 @@
         position: absolute;
         color: white;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-        padding: 1px; /* テキストの周りに余白を追加 */
+        padding: 3px; /* テキストの周りに余白を追加 */
+        max-width: 85%;
+        max-height: 45px;
         top: 0;
-        left: 14px;
-        border-radius: 20% / 30%;
+        left: 12px;
+        border-radius: 5% / 10%;
         font-size: 13px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .recipe-title-ranking {
         position: absolute;
         color: white;
         background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒色 */
-        padding: 1px; /* テキストの周りに余白を追加 */
+        padding: 3px; /* テキストの周りに余白を追加 */
+        max-width: 85%;
+        max-height: 45px;
         top: 28px;
-        left: 14px;
-        border-radius: 20% / 30%;
+        left: 12px;
+        border-radius: 5% / 10%;
         font-size: 13px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .hover-zoom:hover {

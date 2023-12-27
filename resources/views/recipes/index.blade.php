@@ -54,7 +54,7 @@
                     @endif
                     <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
                     <p class="recipe-title">
-                        <strong>{{ $recipe->name }}</strong>
+                        <strong class="">{{ $recipe->name }}</strong>
                         <br>
                         @for ($i = 1; $i <= 5; $i++)
                         @if ($i <= $recipe->averageStar)

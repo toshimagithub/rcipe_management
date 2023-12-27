@@ -5,6 +5,10 @@
         "dev": "vite",
         "build": "vite build"
     },
+    "require": {
+        "laravel/framework": "4.1.*",
+        "intervention/image": "dev-master"
+    },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
         "axios": "^1.1.2",
