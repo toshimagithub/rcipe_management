@@ -41,7 +41,7 @@
 
 @section('content')
 
-    <div class="row">
+<div class="row align-items-stretch">
         @foreach ($recipes as $recipe)
             <div class="sumaho col-sm-4 col-md-3 recipe-container">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     @endif
-                    <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
+                    <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; height: 65%; object-fit: cover;" alt="Recipe Image">
                     <p class="recipe-title">
                         <strong class="">{{ $recipe->name }}</strong>
                         <br>
