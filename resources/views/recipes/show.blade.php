@@ -72,9 +72,9 @@
                             <span>{{ $step->order }}. {{ $step->description }}</span>
                         </div>
                     @endforeach
-                    <div>
+                    <div class="gap">
                         <a href="{{ route('pdf', [$recipe->id]) }}" class="btn btn-warning" style="width:127px">pdfにする</a>
-                        <a href="https://line.me/R/msg/text/?{{ urlencode("レシピ詳細情報: " . route('recipe.show', $recipe->id)) }}" target="_blank" class="btn btn-outline-success ms-3">
+                        <a href="https://line.me/R/msg/text/?{{ urlencode("レシピ詳細情報: " . route('recipe.show', $recipe->id)) }}" target="_blank" class="btn btn-outline-success">
                             <i class="bi bi-line">   LINEで送る</i>
                         </a>
                     </div>

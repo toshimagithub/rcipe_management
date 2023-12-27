@@ -8,7 +8,6 @@
     background-color: #734e30;
 }
 
-
 .hover-zoom:hover {
     transform: scale(1.05);
     transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
@@ -61,7 +60,10 @@
     padding: 15px 0.5rem;
 }
 
-
+.gap {
+    display: flex;
+    gap: 20px;
+}
 
 @media screen and (max-width: 1080px) {
     .recipe-title {
@@ -84,7 +86,6 @@
         border-radius: 20% / 30%;
         font-size: 13px;
     }
-
 
     .sumaho-index {
         width: 100%;
@@ -129,7 +130,6 @@
         transform: scale(1.15);
         transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
     }
-
 }
 
 @media screen and (max-width: 770px) {
