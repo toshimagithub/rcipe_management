@@ -61,11 +61,7 @@
     padding: 15px 0.5rem;
 }
 
-@media screen and (max-width: 770px) {
-    .ght {
-        height: 300px;
-    }
-}
+
 
 @media screen and (max-width: 1080px) {
     .recipe-title {
@@ -134,4 +130,15 @@
         transition: transform 0.3s; /* ホバー時の拡大効果にトランジションを適用 */
     }
 
+}
+
+@media screen and (max-width: 770px) {
+    .height-comment {
+        height: 300px;
+    }
+}
+@media screen and (min-width: 771px) {
+    .height-comment {
+        height: 230px;
+    }
 }
