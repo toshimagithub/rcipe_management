@@ -35,7 +35,6 @@
         </div>
         <div class="col-md-4 text-center">
             <h1>レシピ一覧</h1>
-        </div>
 
 @stop
 
@@ -43,7 +42,7 @@
 
 <div class="row ">
         @foreach ($recipes as $recipe)
-            <div class="sumaho col-sm-4 col-md-3 recipe-container">
+            <div class="sumaho col-sm-4 col-md-3">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                     <div class="ribbon-wrapper">
@@ -52,7 +51,7 @@
                         </div>
                     </div>
                     @endif
-                    <img class="rounded hover-zoom" src="{{ $recipe->image }}"  alt="Recipe Image">
+                    <img class="d-flex align-items-stretch rounded hover-zoom img" src="{{ $recipe->image }}"  alt="Recipe Image">
                     <p class="recipe-title">
                         <strong class="">{{ $recipe->name }}</strong>
                         <br>

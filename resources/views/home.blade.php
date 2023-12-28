@@ -29,7 +29,7 @@
                     <div class="row">
                         <a href="{{ route('recipe.show', [$recipe->id]) }}">
                             <div class="image-container">
-                                <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
+                                <img class="rounded hover-zoom img-home" src="{{ $recipe->image }}" alt="Recipe Image">
                             </div>
                         </a>
                     </div>

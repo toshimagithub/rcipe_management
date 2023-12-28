@@ -38,9 +38,9 @@
 @stop
 
 @section('content')
-    <div class="row text-center">
+    <div class="row ">
         @foreach ($recipes as $recipe)
-            <div class="sumaho col-sm-4 col-md-3 recipe-container">
+            <div class=" sumaho col-sm-4 col-md-3">
                 <a href="{{ route('recipe.show', [$recipe->id]) }}">
                     @if ($recipe->image && ($recipe->created_at->diffInDays(now()) < 1))
                     <div class="ribbon-wrapper">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     @endif
-                    <img class="rounded hover-zoom" src="{{ $recipe->image }}" style="width: 100%; object-fit: cover;" alt="Recipe Image">
+                    <img class="img rounded hover-zoom " src="{{ $recipe->image }}"  alt="Recipe Image">
                     <p class="recipe-title">
                         <strong>{{ $recipe->name }}</strong>
                         <br>
@@ -71,7 +71,7 @@
                         <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-md-12">
                         @if ($recipe->おすすめ == 1)
                             <p  style="color: green;">管理人のおすすめ</p>
