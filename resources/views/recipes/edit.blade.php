@@ -12,25 +12,31 @@
 @include('common.errors')
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="mb-3 mx-auto">
-            <div class="star-rating ">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="star-rating text-center">
                 <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
                     @csrf <!-- CSRFトークンを追加 -->
-                    <div class="d-flex">
-                        <div class="stars">
+                        <div class="center-block">
+                        <span class="stars">
                             @for ($i = 1; $i <= 5; $i++)
                                 <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
                             @endfor
-                        </div>
-                        <div class="ms-3 rating-button-container">
+                        </span>
+                        <span class="ms-3 rating-button-container text-center">
                             <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
                             <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
-                        </div>
+                        </span>
                     </div>
                 </form>
-                <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2">評価しました！</div>
+                <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
+                    評価しました！
+                </div>
             </div>
+        </div>
+        <div class="col-md-4">
         </div>
     </div>
 
