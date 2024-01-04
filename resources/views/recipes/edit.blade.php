@@ -12,33 +12,33 @@
 @include('common.errors')
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <div class="star-rating text-center">
-                <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
-                    @csrf <!-- CSRFトークンを追加 -->
-                        <div class="center-block">
-                        <span class="stars">
-                            @for ($i = 1; $i <= 5; $i++)
-                                <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
-                            @endfor
-                        </span>
-                        <span class="ms-3 rating-button-container text-center">
-                            <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
-                            <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
-                        </span>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <div class="star-rating text-center">
+                    <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
+                        @csrf <!-- CSRFトークンを追加 -->
+                            <div class="center-block">
+                            <span class="stars">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
+                                @endfor
+                            </span>
+                            <span class="ms-3 rating-button-container text-center">
+                                <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
+                                <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
+                            </span>
+                        </div>
+                    </form>
+                    <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
+                        評価しました！
                     </div>
-                </form>
-                <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
-                    評価しました！
                 </div>
             </div>
+            <div class="col-md-4">
+            </div>
         </div>
-        <div class="col-md-4">
-        </div>
-    </div>
 
     <form action="{{ route('recipe.update', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -132,7 +132,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="d-flex justify-content-center">
-                    <button type="submit" class="mt-2 btn btn-warning" style="width:90px;">更新する</button>
+                    <button type="submit" class="mt-2 btn btn-warning" style="width:90px;">編集する</button>
                     <button type="button" class="mt-2 btn btn-danger" style="width:90px;margin-left: 8px;"onclick="confirmDelete()">削除</button>
                 </div>
             </div>
