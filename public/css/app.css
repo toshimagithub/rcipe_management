@@ -19,13 +19,13 @@ p {
 
 .img {
     width: 100%;
-    height: 15cap;
+    height: 15ch;
     object-fit: cover;
 }
 
 .img-home {
     width: 100%;
-    height: 30cap;
+    height: 30ch;
     object-fit: cover;
 }
 
