@@ -57,7 +57,9 @@
                         <form action="{{ route('admin.revoke', [$user->id]) }}" method="post" enctype="multipart/form-data">
                             @method('PATCH')
                             @csrf
-                            <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
+                            @if(Auth::user()->id !== $user->id)
+                                <button type="submit" class="btn btn-danger">ユーザーに戻す</button>
+                            @endif
                         </form>
                     </div>
                     <div class="col-md-4 ">
