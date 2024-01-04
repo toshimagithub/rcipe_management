@@ -94,7 +94,7 @@
                         </form>
                     </div>
                     <div class="col-md-12">
-                        <form action="{{ route('recipe.destroy', $recipe->id) }}" method="post">
+                        <form action="{{ route('admin.destroy', $recipe->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-warning" onclick='return confirm("本当に削除しますか？")' style="width:137px">
