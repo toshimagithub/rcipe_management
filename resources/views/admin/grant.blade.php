@@ -40,7 +40,7 @@
                     <div class="col-md-2">
                         <strong>
                             @if ($user->role == "管理者")
-                                <p style="color: green;">管理人</p>
+                                <p style="color: green;">管理者</p>
                             @else
                                 <p style="color: red;">ユーザー</p>
                             @endif
