@@ -75,4 +75,72 @@ class AdminController extends Controller
         return redirect()->route('admin.management')->with('success', '削除しました。');
     }
 
+    public function sortRating(Request $request)
+    {
+        // 認証済みユーザーを取得
+        $user = auth()->user();
+        // フォームから評価を取得
+        $star = $request->input('star');
+
+        // ユーザーが評価したレシピを取得
+        $recipes = $user->recipe()
+            ->wherePivot('star', $star) // 中間テーブルの star カラムで絞り込む
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+
+        // レシピ一覧ページにリダイレクト
+        return view('recipes.rating', compact('recipes', 'star'));
+    }
+
+    public function bestIndex(Request $request)
+    {
+        $user = auth()->user();
+
+        $recipes = Recipe::with(['user', 'recipesreview'])
+        ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
+        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
+        ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+        ->orderByRaw('AVG(recipes_reviews.star) DESC')
+        ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
+        ->paginate(12);
+
+        foreach($recipes as $recipe) {
+            $recipe->averageStar = $recipe->recipesreview->avg('star');
+            }
+        return view('admin.index', compact('recipes'));
+    }
+
+    public function worstIndex(Request $request)
+    {
+        $user = auth()->user();
+
+        $recipes = Recipe::with(['user', 'recipesreview'])
+        ->select('recipes.*') // 必要に応じて、適切なテーブル名を指定
+        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id') // 正しい結合条件を指定
+        ->groupBy('recipes.id') // グループ化することで AVG を正しく計算
+        ->orderByRaw('AVG(recipes_reviews.star) asc')
+        ->orderByDesc('recipes.created_at') // テーブルエイリアスを使った場合、こちらも適切に修正
+        ->paginate(12);
+
+
+        foreach($recipes as $recipe) {
+            $recipe->averageStar = $recipe->recipesreview->avg('star');
+            }
+        return view('admin.index', compact('recipes'));
+    }
+
+
+    public function oldestIndex(Request $request)
+    {
+        $user = auth()->user();
+
+    $recipes = Recipe::with(['user'])->orderBy('created_at', 'asc')->paginate(12);
+
+    foreach($recipes as $recipe) {
+    $recipe->averageStar = $recipe->recipesreview->avg('star');
+    }
+
+    return view('admin.index', compact('recipes'));
+}
+
 }

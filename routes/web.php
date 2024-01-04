@@ -51,6 +51,9 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::patch('/revoke/{user}', [App\Http\Controllers\AdminController::class, 'revoke'])->name('admin.revoke');
     Route::delete('/destroy/{recipe}', [App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.destroy');
     Route::delete('/UserDestroy/{user}', [App\Http\Controllers\AdminController::class, 'UserDestroy'])->name('user.destroy');
+    Route::get('/best/index', [App\Http\Controllers\AdminController::class, 'bestIndex'])->name('admin.bestIndex');
+    Route::get('/worst/index', [App\Http\Controllers\AdminController::class, 'worstIndex'])->name('admin.worstIndex');
+    Route::get('/oldest/index', [App\Http\Controllers\AdminController::class, 'oldestIndex'])->name('admin.oldestIndex');
 });
 
 

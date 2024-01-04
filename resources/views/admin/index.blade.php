@@ -14,19 +14,19 @@
                     並び替え
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ route('recipe.bestIndex') }}">評価が高い順</a></li>
-                    <li><a class="dropdown-item" href="{{ route('recipe.worstIndex') }}">評価が低い順</a></li>
-                    <li><a class="dropdown-item" href="{{ route('recipe.oldestIndex') }}">投稿が古い順</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.bestIndex') }}">評価が高い順</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.worstIndex') }}">評価が低い順</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.oldestIndex') }}">投稿が古い順</a></li>
                 </ul>
             </div>
             <div class="ms-3">
-                @if(request()->routeIs('recipe.bestIndex'))
+                @if(request()->routeIs('admin.bestIndex'))
                     <b>評価が高い順</b>
                 @endif
-                @if(request()->routeIs('recipe.worstIndex'))
+                @if(request()->routeIs('admin.worstIndex'))
                     <b>評価が低い順</b>
                 @endif
-                @if(request()->routeIs('recipe.oldestIndex'))
+                @if(request()->routeIs('admin.oldestIndex'))
                     <b>投稿が古い順</b>
                 @endif
             </div>
