@@ -45,7 +45,7 @@
                                 @if($count > 1)
                                     @for($i = 1; $i < $count; $i++)
                                         <div class="mb-2 ingredient-item">
-                                    <input type="text" class="form-control @error('ingredients.'.$i-1) is-invalid  @enderror {{ old('ingredients.'.$i-1) && !$errors->has('ingredients.'.$i-1) ? 'is-valid' : '' }}" name="ingredients[]" placeholder="材料 {{ $i + 1 }}." value="{{ $oldIngredients[$i] }}">
+                                    <input type="text" class="form-control @error('ingredients.'.$i-1) is-invalid  @enderror {{ old('ingredients.'.$i-1) && !$errors->has('ingredients.'.$i-1) ? 'is-valid' : '' }}" name="ingredients[]" placeholder="材料" value="{{ $oldIngredients[$i] }}">
                                     @error('ingredients.0')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -76,7 +76,7 @@
                                     @for($i = 1; $i < $count; $i++)
                                         <div class=" mb-2 step-item">
                                             <input type="text" class="form-control @error('descriptions.'.$i-1) is-invalid  @enderror {{ old('descriptions.'.$i-1) && !$errors->has('descriptions.'.$i-1) ? 'is-valid' : '' }}"
-                                            name="descriptions[]" placeholder="作り方 {{ $i + 1 }}." value="{{ $oldDescriptions[$i] }}">
+                                            name="descriptions[]" placeholder="作り方" value="{{ $oldDescriptions[$i] }}">
                                             @error('descriptions.0')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror

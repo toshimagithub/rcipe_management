@@ -9,7 +9,7 @@
 
 @section('content')
 
-@include('common.errors')
+{{-- @include('common.errors') --}}
 
 <div class="container">
         <div class="row">
@@ -87,7 +87,7 @@
                         @if($count > 0)
                             @for($i = 0; $i < $count; $i++)
                                 <div class="mb-2 ingredient-item">
-                                    <input type="text" class="form-control @error('ingredients.'.$i) is-invalid @enderror {{ old('ingredients.'.$i) && !$errors->has('ingredients.'.$i) ? 'is-valid' : '' }}" name="ingredients[]" placeholder="材料 {{ $i + 1 }}." value="{{ $oldIngredients[$i] }}">
+                                    <input type="text" class="form-control @error('ingredients.'.$i) is-invalid @enderror {{ old('ingredients.'.$i) && !$errors->has('ingredients.'.$i) ? 'is-valid' : '' }}" name="ingredients[]" placeholder="材料" value="{{ $oldIngredients[$i] }}">
                                     @error('ingredients.'.$i)
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -114,7 +114,7 @@
                             <div class="mb-2 step-item">
                                 <!-- 手順の入力フィールド -->
                                 <input type="text" class="form-control @error('descriptions.'.$i) is-invalid @enderror {{ old('descriptions.'.$i) && !$errors->has('descriptions.'.$i) ? 'is-valid' : '' }}"
-                                    name="descriptions[]" placeholder="作り方 {{ $i + 1 }}." value="{{ $oldDescriptions[$i] }}">
+                                    name="descriptions[]" placeholder="作り方" value="{{ $oldDescriptions[$i] }}">
                                 <!-- エラーメッセージの表示 -->
                                 @error('descriptions.'.$i)
                                     <div class="invalid-feedback">{{ $message }}</div>
