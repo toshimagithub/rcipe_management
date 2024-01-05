@@ -242,7 +242,8 @@
             // 作り方の順番を取得
             const lastStepOrder = container.querySelectorAll('.step-item').length + 1;
 
-            newTextArea.placeholder = '作り方 ' + lastStepOrder + '.'; // 作り方の順番を設定
+            // newTextArea.placeholder = '作り方 ' + lastStepOrder + '.';  作り方の順番を表示
+            newTextArea.placeholder = '作り方 ';
 
             const removeLink = document.createElement('a');
             removeLink.href = '#';

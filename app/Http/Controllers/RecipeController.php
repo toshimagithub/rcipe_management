@@ -347,7 +347,7 @@ public function review(Request $request, Recipe $recipe)
     //         }
 
 
-      public function ranking(Request $request)
+    public function ranking(Request $request)
     {
         $user = auth()->user();
 
@@ -360,7 +360,7 @@ public function review(Request $request, Recipe $recipe)
             ->get(12);
 
         // 順位を計算して $recipes に追加
-        $rank = ($page - 1) * $perPage + 1; // ページごとに順位を計算し直すための基準となる値
+        $rank = 1;
         $prevStar = null; // 前のレシピの平均スター数を保持するための変数
 
         foreach ($recipes as $recipe) {
@@ -377,13 +377,10 @@ public function review(Request $request, Recipe $recipe)
         return view('recipes.ranking', compact('recipes'));
             }
 
-
-
         public function search(Request $request)
         {
             $keyword = $request->input('search');
 
-            // dd($keyword);
                 $recipes = Recipe::with(['user', 'ingredients', 'recipesreview'])
                     ->where(function ($query) use ($keyword) {
                         $query->where('name', 'like', '%' . $keyword . '%')
