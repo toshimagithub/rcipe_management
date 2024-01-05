@@ -310,41 +310,74 @@ public function review(Request $request, Recipe $recipe)
         return view('recipes.index', compact('recipes'));
     }
 
-    public function ranking(Request $request)
-{
-    $user = auth()->user();
+    //     public function ranking(Request $request)
+    // {
+    //     $user = auth()->user();
 
-    $perPage = 12; // 1ページあたりのアイテム数
+    //     $perPage = 12; // 1ページあたりのアイテム数
 
-    // ページネーションのページ番号を取得
-    $page = $request->query('page', 1);
+    //     // ページネーションのページ番号を取得
+    //     $page = $request->query('page', 1);
 
-    // ページごとにランキングデータを取得
-    $recipes = Recipe::with(['user', 'recipesreview'])
-        ->select('recipes.*')
-        ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id')
-        ->groupBy('recipes.id')
-        ->orderByRaw('AVG(recipes_reviews.star) DESC')
-        ->orderByDesc('recipes.created_at')
-        ->paginate($perPage); // ページネーションを行う
+    //     // ページごとにランキングデータを取得
+    //     $recipes = Recipe::with(['user', 'recipesreview'])
+    //         ->select('recipes.*')
+    //         ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id')
+    //         ->groupBy('recipes.id')
+    //         ->orderByRaw('AVG(recipes_reviews.star) DESC')
+    //         ->orderByDesc('recipes.created_at')
+    //         ->paginate($perPage); // ページネーションを行う
 
-    // 順位を計算して $recipes に追加
-    $rank = ($page - 1) * $perPage + 1; // ページごとに順位を計算し直すための基準となる値
-    $prevStar = null; // 前のレシピの平均スター数を保持するための変数
+    //     // 順位を計算して $recipes に追加
+    //     $rank = ($page - 1) * $perPage + 1; // ページごとに順位を計算し直すための基準となる値
+    //     $prevStar = null; // 前のレシピの平均スター数を保持するための変数
 
-    foreach ($recipes as $recipe) {
-        $recipe->averageStar = $recipe->recipesreview->avg('star');
+    //     foreach ($recipes as $recipe) {
+    //         $recipe->averageStar = $recipe->recipesreview->avg('star');
 
-        if ($prevStar !== null && $recipe->averageStar < $prevStar) {
-            $rank++;
+    //         if ($prevStar !== null && $recipe->averageStar < $prevStar) {
+    //             $rank++;
+    //         }
+
+    //         $recipe->rank = $rank;
+    //         $prevStar = $recipe->averageStar;
+    //     }
+
+    //     return view('recipes.ranking', compact('recipes'));
+    //         }
+
+
+      public function ranking(Request $request)
+    {
+        $user = auth()->user();
+
+        $recipes = Recipe::with(['user', 'recipesreview'])
+            ->select('recipes.*')
+            ->join('recipes_reviews', 'recipes.id', '=', 'recipes_reviews.recipe_id')
+            ->groupBy('recipes.id')
+            ->orderByRaw('AVG(recipes_reviews.star) DESC')
+            ->orderByDesc('recipes.created_at')
+            ->get(12);
+
+        // 順位を計算して $recipes に追加
+        $rank = ($page - 1) * $perPage + 1; // ページごとに順位を計算し直すための基準となる値
+        $prevStar = null; // 前のレシピの平均スター数を保持するための変数
+
+        foreach ($recipes as $recipe) {
+            $recipe->averageStar = $recipe->recipesreview->avg('star');
+
+            if ($prevStar !== null && $recipe->averageStar < $prevStar) {
+                $rank++;
+            }
+
+            $recipe->rank = $rank;
+            $prevStar = $recipe->averageStar;
         }
 
-        $recipe->rank = $rank;
-        $prevStar = $recipe->averageStar;
-    }
+        return view('recipes.ranking', compact('recipes'));
+            }
 
-    return view('recipes.ranking', compact('recipes'));
-        }
+
 
         public function search(Request $request)
         {

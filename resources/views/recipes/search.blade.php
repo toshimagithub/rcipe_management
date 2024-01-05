@@ -59,7 +59,7 @@
         @endif
     <footer class="small">
         <div class="mt-4">
-          {{ $recipes->appends(request()->input())->links('pagination::bootstrap-5') }}
+        {{ $recipes->appends(request()->input())->links('pagination::bootstrap-5') }}
         </div>
     </footer>
 @stop

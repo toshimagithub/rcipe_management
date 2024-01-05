@@ -52,11 +52,12 @@
             </div>
         @endforeach
     </div>
-    <footer class="small">
+    {{-- <footer class="small">
         <div class="mt-4">
             {{ $recipes->links('pagination::bootstrap-5') }}
+            {{ $recipes->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
-    </footer>
+    </footer> --}}
 @stop
 
 @section('css')

@@ -74,7 +74,7 @@
                 <div class="row text-center">
                     <div class="col-md-12">
                         @if ($recipe->おすすめ == 1)
-                            <p  style="color: green;">管理人のおすすめ</p>
+                            <p  style="color: green;">管理者のおすすめ</p>
                         @else
                             <p  style="color: red;">おすすめになっていません</p>
                         @endif
