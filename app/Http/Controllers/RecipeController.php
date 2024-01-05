@@ -39,9 +39,9 @@ class RecipeController extends Controller
     public function store(Request $request,)
     {
         $this->validate($request,[
-            'name'=>'required|max:255',
-            'ingredients.*' => 'required|max:255',
-            'descriptions.*' => 'required|max:255',
+            'name'=>'required|max:90',
+            'ingredients.*' => 'required|max:90',
+            'descriptions.*' => 'required|max:90',
             'comment'=>'required|max:255',
             'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:46',
         ]);
@@ -156,9 +156,9 @@ public function review(Request $request, Recipe $recipe)
         {
 
                 $this->validate($request,[
-                'name'=>'required|max:255',
-                'ingredients.*' => 'required|max:255',
-                'descriptions.*' => 'required|max:255',
+                'name'=>'required|max:90',
+                'ingredients.*' => 'required|max:90',
+                'descriptions.*' => 'required|max:90',
                 'comment'=>'required|max:255',
                 'image'=>'image|mimes:jpeg,png,jpg,gif|max:46',
             ]);
