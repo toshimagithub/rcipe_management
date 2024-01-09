@@ -12,44 +12,44 @@
 {{-- @include('common.errors') --}}
 
 <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-                <div class="star-rating text-center">
-                    <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
-                        @csrf <!-- CSRFトークンを追加 -->
-                            <div class="center-block">
-                            <span class="stars">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
-                                @endfor
-                            </span>
-                            <span class="ms-3 rating-button-container text-center">
-                                <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
-                                <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
-                            </span>
-                        </div>
-                    </form>
-                    <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
-                        評価しました！
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="star-rating text-center">
+                <form id="rating-form" action="{{ route('recipe.review', [$recipe->id]) }}" method="POST">
+                    @csrf <!-- CSRFトークンを追加 -->
+                    <div class="center-block">
+                        <span class="stars">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <span class="bi bi-star-fill star" data-rating="{{ $i }}" style="color: {{ $i <= (optional($recipesReview)->star ?? 0) ? '#FFD700' : '#c0c0c0' }}"></span>
+                            @endfor
+                        </span>
+                        <span class="ms-3 rating-button-container text-center">
+                            <input type="hidden" id="selected-rating" name="selected-star" value="{{ optional($recipesReview)->star ?? 0 }}">
+                            <button type="button" id="submit-rating" class="btn btn-outline-warning btn-sm">評価する</button>
+                        </span>
                     </div>
+                </form>
+                <div id="rating-success-message" style="display: none;" class="alert alert-success mt-2 text-center">
+                    評価しました！
                 </div>
             </div>
-            <div class="col-md-4">
-            </div>
         </div>
+        <div class="col-md-4">
+        </div>
+    </div>
 
     <form action="{{ route('recipe.update', [$recipe->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="row">
             <!-- レシピ名と画像 -->
-            <div class="card col-sm-6 col-md-6    text-center border-0 shadow-none bg-transparent">
+            <div class="card col-sm-6 col-md-6 text-center border-0 shadow-none bg-transparent">
                 <div class="max-auto">
                     <input type="file" class="text-center" placeholder="写真" name="image">
                 </div>
-                <input type="text" name="name" class="form-control text-center @error('name') is-invalid @enderror " style="border: none;  font-weight: bold;" value="{{ old('name', $recipe->name) }}">
+                <input type="text" name="name" class="form-control text-center @error('name') is-invalid @enderror " style="border: none; font-weight: bold;" value="{{ old('name', $recipe->name) }}">
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -61,19 +61,14 @@
                     <p>{{ $recipe->user ? $recipe->user->name : 'ユーザーが存在しません' }} / {{ $recipe->created_at->diffForHumans() }}</p>
                 </div>
                 <label>コメント</label>
-
-                <textarea class="height-comment w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line
-                @error('comment') is-invalid @enderror"
-                name="comment" style="resize: none; border-radius: 10px;">
-                    {{ old('comment', $recipe->comment) }}
-                </textarea>
+                <textarea class="height-comment w-auto py-1 border border-gray-300 rounded-md font-semibold whitespace-pre-line @error('comment') is-invalid @enderror" name="comment" style="resize: none; border-radius: 10px;">{{ old('comment', $recipe->comment) }}</textarea>
                 @error('comment')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
             <!-- 材料 -->
-            <div class="card col-sm-6 col-md-6  border-0 shadow-none bg-transparent ">
+            <div class="card col-sm-6 col-md-6 border-0 shadow-none bg-transparent ">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">材料</label>
                     <br>
@@ -104,27 +99,26 @@
                     <br>
                     <div class="steps-container">
                         @php
-                        // 前回のフォーム入力値（またはデフォルト値）を取得
-                        $oldDescriptions = old('descriptions', $steps->pluck('description')->toArray());
-                        // 入力値の数を取得
-                        $count = count($oldDescriptions);
-                    @endphp
-                    @if($count > 0)
-                        @for($i = 0; $i < $count; $i++)
-                            <div class="mb-2 step-item">
-                                <!-- 手順の入力フィールド -->
-                                <input type="text" class="form-control @error('descriptions.'.$i) is-invalid @enderror {{ old('descriptions.'.$i) && !$errors->has('descriptions.'.$i) ? 'is-valid' : '' }}"
-                                    name="descriptions[]" placeholder="作り方" value="{{ $oldDescriptions[$i] }}">
-                                <!-- エラーメッセージの表示 -->
-                                @error('descriptions.'.$i)
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <!-- 手順削除ボタン -->
-                                <a href="#" class="btn btn-sm btn-danger remove-step">削除</a>
-                            </div>
-                        @endfor
-                    @endif
-
+                            // 前回のフォーム入力値（またはデフォルト値）を取得
+                            $oldDescriptions = old('descriptions', $steps->pluck('description')->toArray());
+                            // 入力値の数を取得
+                            $count = count($oldDescriptions);
+                        @endphp
+                        @if($count > 0)
+                            @for($i = 0; $i < $count; $i++)
+                                <div class="mb-2 step-item">
+                                    <!-- 手順の入力フィールド -->
+                                    <input type="text" class="form-control @error('descriptions.'.$i) is-invalid @enderror {{ old('descriptions.'.$i) && !$errors->has('descriptions.'.$i) ? 'is-valid' : '' }}"
+                                        name="descriptions[]" placeholder="作り方" value="{{ $oldDescriptions[$i] }}">
+                                    <!-- エラーメッセージの表示 -->
+                                    @error('descriptions.'.$i)
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <!-- 手順削除ボタン -->
+                                    <a href="#" class="btn btn-sm btn-danger remove-step">削除</a>
+                                </div>
+                            @endfor
+                        @endif
                     </div>
                 </div>
             </div>
@@ -133,10 +127,9 @@
             <div class="col-md-6">
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="mt-2 btn btn-warning" style="width:90px;">編集する</button>
-                    <button type="button" class="mt-2 btn btn-danger" style="width:90px;margin-left: 8px;"onclick="confirmDelete()">削除</button>
+                    <button type="button" class="mt-2 btn btn-danger" style="width:90px;margin-left: 8px;" onclick="confirmDelete()">削除</button>
                 </div>
             </div>
-
         </div>
     </form>
     <form id="delete-form" action="{{ route('recipe.destroy', $recipe->id) }}" method="post" >

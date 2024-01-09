@@ -149,12 +149,10 @@ public function review(Request $request, Recipe $recipe)
             ->first(); // レビュー情報を取得 １件だけ返ってくる。
 
             return view('recipes.edit',compact('recipe','ingredients','steps', 'recipesReview'));
-
         }
 
         public function update(Request $request, Recipe $recipe)
         {
-
                 $this->validate($request,[
                 'name'=>'required|max:90',
                 'ingredients.*' => 'required|max:90',
@@ -295,7 +293,6 @@ public function review(Request $request, Recipe $recipe)
             return view('recipes.index', compact('recipes'));
         }
 
-
         public function oldestIndex(Request $request)
         {
             $user = auth()->user();
@@ -400,6 +397,8 @@ public function review(Request $request, Recipe $recipe)
                 foreach ($recipes as $recipe) {
                     $recipe->averageStar = $recipe->recipesreview->avg('star');
                 }
+
+                dd($recipe);
 
                 return view('recipes.search', compact('recipes', 'keyword'));
             }
