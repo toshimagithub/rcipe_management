@@ -28,7 +28,6 @@ class RecipeController extends Controller
       // viewの @if ($i <= $recipe->averageStar)は($i <=$recipe->recipesreview->avg('star'))これでも表示できる
         }
 
-        // dd($recipes);
         return view('recipes.index', compact('recipes'));
     }
     public function create()
@@ -43,7 +42,7 @@ class RecipeController extends Controller
             'ingredients.*' => 'required|max:90',
             'descriptions.*' => 'required|max:90',
             'comment'=>'required|max:255',
-            'image'=>'required|image|mimes:jpeg,png,jpg,gif|max:46',
+            'image'=>'required|image|mimes:jpeg|max:46',
         ]);
 
         $user = auth()->user();
@@ -97,6 +96,7 @@ public function show(Recipe $recipe)
     $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
     ->where('user_id', auth()->user()->id)
     ->first(); // レビュー情報を取得 １件だけ返ってくる。
+    dd($recipe);
     return view('recipes.show',compact('recipe','ingredients','steps', 'recipesReview'));
 }
 
