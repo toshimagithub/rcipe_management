@@ -97,6 +97,7 @@ public function show(Recipe $recipe)
     $recipesReview = RecipesReview::where('recipe_id', $recipe->id)
     ->where('user_id', auth()->user()->id)
     ->first(); // レビュー情報を取得 １件だけ返ってくる。
+    dd($recipe);
     return view('recipes.show',compact('recipe','ingredients','steps', 'recipesReview'));
 }
 
@@ -397,8 +398,6 @@ public function review(Request $request, Recipe $recipe)
                 foreach ($recipes as $recipe) {
                     $recipe->averageStar = $recipe->recipesreview->avg('star');
                 }
-
-                dd($recipe);
 
                 return view('recipes.search', compact('recipes', 'keyword'));
             }
