@@ -382,8 +382,6 @@ public function review(Request $request, Recipe $recipe)
                 $recipes = Recipe::with(['user', 'ingredients', 'recipesreview'])
                     ->where(function ($query) use ($keyword) {
                         $query->where('name', 'like', '%' . $keyword . '%')
-                            ->orWhere('id', 'like', '%' . $keyword . '%')
-                            ->orWhere('comment', 'like', '%' . $keyword . '%')
                             ->orWhereHas('user', function ($userQuery) use ($keyword) {
                                 $userQuery->where('name', 'like', '%' . $keyword . '%');
                             })
