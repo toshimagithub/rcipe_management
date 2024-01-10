@@ -30,4 +30,4 @@
 
 ### テストアカウント情報
 メールアドレス :  test@test
- パスワード     :  test@test
+パスワード     :  test@test
