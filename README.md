@@ -29,5 +29,5 @@
 [アプリケーションページへ](https://resipe-management-67f6fda02d06.herokuapp.com/login)
 
 ### テストアカウント情報
-メールアドレス :  test@test
+メールアドレス :  test@test  
 パスワード     :  test@test
