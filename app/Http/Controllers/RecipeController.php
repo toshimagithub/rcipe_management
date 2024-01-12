@@ -353,7 +353,7 @@ public function review(Request $request, Recipe $recipe)
             ->groupBy('recipes.id')
             ->orderByRaw('AVG(recipes_reviews.star) DESC')
             ->orderByDesc('recipes.created_at')
-            ->get(12);
+            ->get();
 
         // 順位を計算して $recipes に追加
         $rank = 1;
