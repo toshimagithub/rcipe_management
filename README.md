@@ -22,6 +22,7 @@
     MySQL 5.7.39
     Laravel 10.38.2
     ```
+
 ### 設計書
 [設計書ページへ](https://drive.google.com/drive/folders/1cpOBWIsSc8k55MqRiVK7ouFq1OTt8Mob)
 
