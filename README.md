@@ -23,12 +23,6 @@
     Laravel 10.38.2
     ```
 
-### 設計書
-[設計書ページへ](https://drive.google.com/drive/folders/1cpOBWIsSc8k55MqRiVK7ouFq1OTt8Mob)
-
-### システム閲覧
-[アプリケーションページへ](https://resipe-management-67f6fda02d06.herokuapp.com/login)
-
 ### テストアカウント情報
 メールアドレス :  test@test  
 パスワード     :  test@test
